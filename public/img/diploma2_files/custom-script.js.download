@@ -1,0 +1,126 @@
+
+jQuery(document).ready(function($) {
+  $('.instructor').owlCarousel({
+    nav:true,
+    margin: 10,
+    dots:false,
+    responsive: {
+      0: {
+        items: 1
+      },
+      768: {
+        items: 1
+      },
+      1280: {
+        items: 1
+      }
+    }
+  });
+ 
+});
+
+
+
+jQuery(document).ready(function($){
+  $('.program-page').owlCarousel({
+    nav:true,
+    margin: 10,
+    dots:true,
+    responsive: {
+      0: {
+        items: 1
+      },
+      768: {
+        items: 2
+      },
+      1024:{
+          items:1
+      },
+      1280: {
+        items: 2
+      }
+    }
+  });
+})
+
+ jQuery(document).ready(function($) {
+    $('.icons').owlCarousel({
+      nav:true,
+      margin: 10,
+      dots:true,
+      responsive: {
+        0: {
+          items: 1
+        },
+        768: {
+          items: 3
+        },
+        1280: {
+          items: 5
+        }
+      }
+    });
+   
+  });
+
+jQuery(document).ready(function($) {
+  $('.owl-carousel').owlCarousel({
+    nav:true,
+    margin: 10,
+    dots:true,
+    responsive: {
+      0: {
+        items: 1
+      },
+      768: {
+        items: 2
+      },
+      1280: {
+        items: 3
+      }
+    }
+  });
+ 
+
+})
+
+// function toggleActiveBtn(btn) {
+//   let contentName = btn.getAttribute("data-content");
+
+//   let buttons = document.querySelectorAll(".togglebtn");
+
+//   for (let i = 0; i < buttons.length; i++) {
+//     buttons[i].classList.remove("activeToggleBtn");
+//   }
+
+//   btn.classList.add("activeToggleBtn");
+
+//   let contents = document.querySelectorAll(".content");
+
+//   for (let i = 0; i < contents.length; i++) {
+//     if (contents[i].getAttribute("data-name") === contentName) {
+//       contents[i].style.display = "block";
+//       const animation = gsap
+//         .timeline({ paused: true })
+//         .from(contents[i], { x: 200, opacity: 0, duration: 0.5});
+//       animation.play();
+//     } else {
+//       contents[i].style.display = "none";
+//     }
+//   }
+// }
+// window.onload = function () {
+//   let buttons = document.querySelectorAll(".togglebtn");
+//   buttons[0].classList.add("activeToggleBtn");
+//   let contents = document.querySelectorAll(".content");
+//   if (
+//     contents[0].getAttribute("data-name") ===
+//     buttons[0].getAttribute("data-content")
+//   ) {
+//     contents[0].style.display = "block";
+//   }
+// };
+
+
+
+

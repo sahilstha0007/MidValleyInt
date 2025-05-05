@@ -1,0 +1,321 @@
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.fromTo(
+  ".student-carousel",
+  { y: 100, opacity: 0 },
+  {
+    scrollTrigger: {
+      trigger: ".student-carousel",
+      toggleActions: "restart",
+    },
+    y: 0,
+opacity: 1,
+    stagger: 0.25,
+  }
+);
+
+gsap.fromTo(
+  ".sidebar",
+  { y: "0%" },
+  {
+    scrollTrigger:{
+      trigger:'.sidebar',
+      start: 'top 10%',
+      end: "50% 50%",
+      scrub: true 
+    },
+    y: "15%",
+  }
+);
+
+
+gsap.fromTo(
+  ".stickImg",
+  { y: "0%" },
+  {
+    scrollTrigger: {
+      trigger: ".stickImg",
+      start: "0% 0%",
+      // marker: true,
+    },
+    ease: "bounce.out",
+    y: "50%",
+  }
+);
+
+const cardItems = document.querySelectorAll(".fade-img");
+cardItems.forEach((card) => {
+  card.addEventListener("mouseenter", () => {
+    gsap.fromTo(card, { opacity: 1 }, { opacity: 0.8 });
+  });
+
+  card.addEventListener("mouseleave", () => {
+    gsap.fromTo(card, { opacity: 0.5 }, { opacity: 1 });
+  });
+});
+
+const box = document.querySelectorAll(".hover-effect");
+
+box.forEach((b) => {
+  let hoverAnimation = gsap.to(b, {
+    paused: true,
+    scale: 1.03,
+    duration: 0.25,
+  });
+  gsap.set(gsap, { scaleX: 1 });
+  b.addEventListener("mouseenter", () => {
+    hoverAnimation.play();
+  });
+  b.addEventListener("mouseleave", () => {
+    hoverAnimation.reverse();
+  });
+});
+
+const imageBetween = document.querySelectorAll(".img-btw");
+
+imageBetween.forEach((b) => {
+  b.addEventListener("mouseenter", () => {
+    gsap.fromTo(
+      b,
+      {
+        scale: 1,
+        // filter: "sepia(100%)",
+        opacity: "1",
+      },
+      {
+        scale: 1.1,
+        // filter: "sepia(50%)",
+        opacity: "0.5",
+      }
+    );
+  });
+  b.addEventListener("mouseleave", () => {
+    gsap.fromTo(
+      b,
+      {
+        scale: 1.1,
+        // filter: "sepia(50%)",
+        opacity: "0.8",
+        filter: "rgba(241, 89, 45, 0.5)",
+      },
+      { scale: 1, filter: "none", opacity: "1" }
+    );
+  });
+});
+
+// Abhi
+
+gsap.fromTo(
+  ".heading",
+  { y: -50, opacity: 0 },
+  {
+    y: 0,
+    opacity: 1,
+    duration: 0.5,
+    stagger: 0.4,
+  }
+);
+
+AnimateX = (thingToAnimate, xValue = 50, stagger = 0.25) => {
+  gsap.fromTo(
+    thingToAnimate,
+    {
+      x: xValue,
+      opacity: 0,
+      display: "none",
+    },
+    {
+      scrollTrigger: {
+        trigger: thingToAnimate,
+        start: "0% 70%",
+        // markers: true,
+      },
+      x: 0,
+      opacity: 1,
+      duration: 0.5,
+      display: "block",
+      stagger: stagger,
+    }
+  );
+};
+
+AnimateX(".animateX4");
+AnimateX(".animateX5", -50);
+
+AnimateTopToBottom = (thingToAnimate, yValue = -100) => {
+  gsap.fromTo(
+    thingToAnimate,
+    { y: yValue, opacity: 0 },
+    {
+      scrollTrigger: {
+        trigger: thingToAnimate,
+        start: "50% 70%",
+        // markers: true,
+      },
+      y: 0,
+      opacity: 1,
+      duration: 0.5,
+      stagger: 0.25,
+    }
+  );
+};
+
+AnimateTopToBottom(".animTopToDown");
+AnimateTopToBottom(".animTopToDown2", 100);
+AnimateTopToBottom(".animTopToDown3", 100);
+AnimateTopToBottom(".animTopToDown3-text");
+AnimateTopToBottom(".animTopToDown4");
+
+const AnimateY = (thingToAnimate, yValue = 100, startPos = "50%") => {
+  gsap.fromTo(
+    thingToAnimate,
+    {
+      y: yValue,
+      opacity: 0,
+    },
+    {
+      scrollTrigger: {
+        trigger: thingToAnimate,
+        start: `${startPos} 70%`,
+        // markers:true,
+      },
+      y: 0,
+      opacity: 1,
+      duration: 0.5,
+      stagger: 0.25,
+    }
+  );
+};
+
+AnimateY(".animateY", -100, "10%");
+AnimateY(".animateY2", 100, "10%");
+// AnimateY(".animateY3", -100, "10%");
+AnimateY(".animateY4", -100, "10%");
+
+gsap.fromTo(
+  ".logos",
+
+  { y: 100, opacity: 0 },
+  {
+    scrollTrigger: {
+      trigger: ".logos",
+      // start: "-50% 60%",
+      // markers: true,
+    },
+
+    y: 0,
+    opacity: 1,
+    stagger: 0.25,
+  }
+);
+
+gsap.fromTo(
+  ".buttonItem",
+
+  { x: -50, opacity: 0 },
+  {
+    scrollTrigger: {
+      trigger: ".buttonItem",
+    },
+
+    x: 0,
+    opacity: 1,
+    stagger: 0.25,
+  }
+);
+
+const buttons = document.querySelectorAll(".buttonItem");
+const contents = document.querySelectorAll(".content");
+const textContents = document.querySelectorAll(".textContent");
+
+buttons.forEach((button) => {
+  button.classList.remove("bg-primary", "text-white");
+  button.addEventListener("click", () => {
+    const buttonID = button.id;
+    const contentId = `content${buttonID.slice(-1)}`;
+    contents.forEach((c) => {
+      if (c.id !== contentId) {
+        c.classList.add("d-none");
+      } else {
+        c.classList.remove("d-none");
+      }
+    });
+
+    buttons.forEach((b) => {
+      if (b.id === buttonID) {
+        b.classList.add("bg-primary", "text-white");
+        b.classList.remove("bg-white");
+      } else {
+        b.classList.remove("bg-primary", "text-white");
+        b.classList.add("bg-white");
+      }
+    });
+  });
+});
+
+// abhi end
+
+// let radio1 = document.getElementById("radio1");
+// let radio2 = document.getElementById("radio2");
+// let radiobuttons = document.querySelector(".radiobuttons");
+// let undergrad = document.querySelector("#undergrad");
+// let diploma = document.querySelector("#diploma");
+// // let undergradSelect = document.querySelector(".undergradSelect");
+// // let diplomaSelect = document.querySelector(".diplomaSelect");
+// let undergradSelect = document.getElementsByName("undergradSelect");
+// let diplomaSelect = document.getElementsByName("diplomaSelect");
+
+// radio1.addEventListener("click", function () {
+//   undergradSelect.removeAttribute("disabled");
+//   diplomaSelect.setAttribute("disabled", "true");
+// });
+
+// radio2.addEventListener("click", function () {
+//   diplomaSelect.removeAttribute("disabled");
+//   undergradSelect.setAttribute("disabled", "true");
+// });
+
+
+
+function toggleActiveBtn(btn) {
+  let contentName = btn.getAttribute("data-content");
+
+  let buttons = document.querySelectorAll(".togglebtn");
+
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].classList.remove("activeToggleBtn");
+  }
+  btn.classList.add("activeToggleBtn");
+  let contents = document.querySelectorAll(".content");
+  for (let i = 0; i < contents.length; i++) {
+    if (contents[i].getAttribute("data-name") === contentName) {
+      contents[i].style.display = "block";
+      const animation = gsap
+        .timeline({ paused: true })
+        .from(contents[i], { x: 200, opacity: 0, duration: 0.5 });
+      animation.play();
+    } else {
+      contents[i].style.display = "none";
+    }
+  }
+}
+
+window.onload = function () {
+  // diploma & program ko button
+//   let buttons = document.querySelectorAll(".togglebtn");
+//   buttons[0].classList.add("activeToggleBtn");
+//   let contents = document.querySelectorAll(".content");
+//   if (
+//     contents[0].getAttribute("data-name") ===
+//     buttons[0].getAttribute("data-content")
+//   ) {
+//     contents[0].style.display = "block";
+//   }
+//   const firstButton = buttons[0];
+//   const firstContent = contents[0];
+
+  // why city and guilds
+  firstButton.classList.add("bg-primary", "text-white");
+  firstContent.classList.remove("d-none");
+  firstButton.classList.remove("bg-white");
+};

@@ -1,0 +1,194 @@
+// nav hover animation
+const navItems = document.querySelectorAll(".navItem");
+const navLinks = document.querySelectorAll(".navLink");
+const navUnderlines = document.querySelectorAll(".navUnderline");
+
+navItems.forEach((item, index) => {
+  let navLinkAnimation = gsap.to(navLinks[index], {
+    paused: true,
+    scale: 1.1,
+    y: -5,
+    duration: 0.1,
+  });
+  gsap.set(navUnderlines[index], { scaleX: 0 });
+  let navUnderlineAnimation = gsap.to(navUnderlines[index], {
+    paused: true,
+    scaleX: 1,
+    duration: 0.1,
+  });
+  item.addEventListener("mouseenter", () => {
+    navLinkAnimation.play(), navUnderlineAnimation.play();
+  });
+  item.addEventListener("mouseleave", () => {
+    navLinkAnimation.reverse(), navUnderlineAnimation.reverse();
+  });
+});
+
+////////////////////////// Drop Down logic /////////////////////////////////////////////
+const dropdownButtons = document.querySelectorAll(".dropdownButton");
+const dropdownContents = document.querySelectorAll(".dropdownContent");
+const dropDownIcons = document.querySelectorAll(".dropDownIcon");
+
+function dropdownFeature(dropdownButtons, dropdownContents, dropDownIcons) {
+  let timelines = [];
+  let isMouseOnDropdown = false;
+  dropdownButtons.forEach((button, index) => {
+    let timeline = gsap.timeline({
+      paused: true,
+    });
+    timeline
+      .to(dropDownIcons[index], {
+        rotate: 90,
+        color: "#f1592d",
+        duration: 0.1,
+      })
+      .fromTo(
+        dropdownContents[index],
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, ease: "power3.out", duration: 0.1 }
+      );
+
+    timelines.push(timeline);
+
+    const OpenDropdown = () => {
+      dropdownContents[index].classList.remove("d-none");
+      timelines[index].play();
+    };
+    const CloseDropdown = () => {
+      timelines[index].reverse();
+      dropdownContents[index].classList.add("d-none");
+      isMouseOnDropdown = false;
+    };
+
+    button.addEventListener("mouseenter", () => {
+      if (dropdownContents[index].classList.contains("d-none")) OpenDropdown();
+    });
+
+    dropdownContents[index].addEventListener(
+      "mouseenter",
+      () => (isMouseOnDropdown = true)
+    );
+
+    dropdownContents[index].addEventListener("mouseleave", () =>
+      CloseDropdown()
+    );
+
+    button.addEventListener("mouseleave", () => {
+      setTimeout(() => {
+        if (
+          !dropdownContents[index].classList.contains("d-none") &&
+          !isMouseOnDropdown
+        ) {
+          CloseDropdown();
+        }
+      }, 150);
+    });
+
+    button.addEventListener("click", () => {
+      if (dropdownContents[index].classList.contains("d-none")) {
+        timelines.forEach((timeline, i) => {
+          if (
+            i !== index &&
+            !dropdownContents[i].classList.contains("d-none")
+          ) {
+            timeline.reverse();
+            dropdownContents[i].classList.add("d-none");
+          }
+        });
+        OpenDropdown();
+      } else {
+        CloseDropdown();
+      }
+    });
+  });
+}
+
+dropdownFeature(dropdownButtons, dropdownContents, dropDownIcons);
+
+// Program button hover animation
+const dropdownLinkValue = document.querySelectorAll(".dropdownLinkValue");
+
+dropdownLinkValue.forEach((item) => {
+  let dropdownLinkAnimation = gsap.to(item, {
+    paused: true,
+    backgroundColor: "#d4d4d4",
+
+    duration: 0.25,
+  });
+  // there was a problem because the button didn't have an initial state
+  gsap.set(item, { backgroundColor: "transparent" });
+
+  item.addEventListener("mouseenter", () => {
+    dropdownLinkAnimation.restart();
+  });
+  item.addEventListener("mouseleave", () => {
+    dropdownLinkAnimation.reverse();
+  });
+});
+
+/////////// Programs Sub menu //////////////////
+
+const dropdownSubButtons = document.querySelectorAll(".dropdownSubButton");
+const dropdownSubContents = document.querySelectorAll(".dropdownSubContent");
+const dropDownSubIcons = document.querySelectorAll(".dropDownSubIcon");
+
+let timelines = [];
+
+setTimeout(() => {
+  const firstContent = dropdownSubContents[0];
+  timelines[0].play();
+  firstContent.classList.remove("d-none");
+}, 10);
+
+dropdownSubButtons.forEach((button, index) => {
+  let timeline = gsap.timeline({
+    paused: true,
+    delay: 0.05,
+    defaults: {
+      duration: 0.1,
+    },
+  });
+
+  timeline
+    .to(button, {
+      outline: "1px solid black",
+    })
+    .fromTo(
+      dropdownSubContents[index],
+      {
+        y: 50,
+        opacity: 0,
+      },
+      {
+        y: 0,
+        opacity: 1,
+        ease: "power3.out",
+      },
+      "-=0.1"
+    );
+
+  timelines.push(timeline);
+
+  const OpenHoveredDropdownCloseOthers = ()=>{
+    timelines.forEach((timeline, i) => {
+      if (
+        i !== index &&
+        !dropdownSubContents[i].classList.contains("d-none")
+      ) {
+        timeline.reverse();
+        dropdownSubContents[i].classList.add("d-none");
+      }
+    });
+    dropdownSubContents[index].classList.remove("d-none");
+      timelines[index].play();
+  }
+
+  button.addEventListener("mouseenter", () => {
+    if (dropdownSubContents[index].classList.contains("d-none")) OpenHoveredDropdownCloseOthers();
+  });
+
+
+  button.addEventListener("click", () => {
+    if (dropdownSubContents[index].classList.contains("d-none")) OpenHoveredDropdownCloseOthers();
+  });
+});
