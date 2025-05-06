@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation"; // Import navigation styles
 import { Navigation } from "swiper/modules"; // Import navigation module
+import { useNavigate } from "react-router-dom";
 
 const images = [
   "/img/holi.jpg",
@@ -14,6 +15,8 @@ const images = [
 
 const Gallery = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const navigate = useNavigate()
+  
 
   useEffect(() => {
     const handleResize = () => {
@@ -84,7 +87,7 @@ const Gallery = () => {
       )}
 
       <div className="flex justify-center mt-10">
-        <button className="bg-white border border-gray-300 px-6 py-2 rounded-full text-sm font-semibold hover:bg-gray-200 transition">
+        <button onClick={() =>{navigate(`/gallery&events`)}}  className="bg-white border border-gray-300 px-6 py-2 rounded-full text-sm font-semibold hover:bg-gray-200 transition">
           VIEW MORE
         </button>
       </div>

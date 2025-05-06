@@ -112,7 +112,7 @@ function BBA() {
 
                     {/* Foreground UI */}
                     <UI />
-                    <Suspense fallback={<LoadingPage />}>
+                    {/* <Suspense fallback={<LoadingPage />}> */}
                         <Canvas
                             shadows
                             camera={{
@@ -123,7 +123,7 @@ function BBA() {
 
                             <Experience />
                         </Canvas>
-                    </Suspense>
+                    {/* </Suspense> */}
 
                     {/* Text Overlay */}
                     <motion.div

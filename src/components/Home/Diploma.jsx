@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ArrowRight, ArrowUp } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const cards = [
   {
@@ -21,6 +22,7 @@ const cards = [
 
 export default function Diploma() {
 const [activeTab, setActiveTab] = useState(0);
+const navigate = useNavigate();
 
   return (
     
@@ -53,7 +55,7 @@ const [activeTab, setActiveTab] = useState(0);
                   <h3 className="text-[22px] font-semibold text-orange-600">{card.title}</h3>
                   <p className="text-sm font-medium text-gray-600">{card.location}</p>
                 </div>
-                <button className="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center">
+                <button onClick={()=>{navigate("/Diploma")}} className="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center">
                   <ArrowRight size={20} />
                 </button>
                 

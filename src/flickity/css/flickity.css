@@ -1,0 +1,23 @@
+.text-gradient {
+  background: linear-gradient(to right, var(--from), var(--to));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-shadow {
+  text-shadow: 0 2px 4px rgba(241, 89, 45, 0.5);
+}
+
+.flickity-enabled {
+  perspective: 1000px;
+}
+
+.flickity-enabled .flickity-page-dots {
+  bottom: 20px;
+}
+.flickity-enabled .flickity-page-dots .dot {
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}

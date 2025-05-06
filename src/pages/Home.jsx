@@ -1,4 +1,4 @@
-import React from 'react'
+ import React from 'react'
 import Hero from '../components/Home/Hero'
 import Courses from '../components/Home/Courses'
 import Diploma from '../components/Home/Diploma'

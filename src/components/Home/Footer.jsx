@@ -28,7 +28,7 @@ export default function Footer() {
               <FaPinterestP size={18} />
             </a>
           </div>
-        </div>
+        </div> 
 
         {/* Pages */}
         <div className="pl-0 sm:pl-8 lg:pl-16 pt-2">

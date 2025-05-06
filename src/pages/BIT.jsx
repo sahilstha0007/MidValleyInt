@@ -151,7 +151,7 @@ function BIT() {
 
                     {/* Foreground UI */}
                     <UI />
-                    <Suspense fallback={<LoadingPage />}>
+                    {/* <Suspense fallback={<LoadingPage />}> */}
                         <Canvas
                             shadows
                             camera={{
@@ -162,7 +162,7 @@ function BIT() {
 
                             <Experience />
                         </Canvas>
-                    </Suspense>
+                    {/* </Suspense> */}
 
                     {/* Text Overlay */}
                     <motion.div

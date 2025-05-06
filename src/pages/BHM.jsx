@@ -175,7 +175,7 @@ function BHM() {
 
                     {/* Foreground UI */}
                     <UI />
-                    <Suspense fallback={<LoadingPage />}>
+                    {/* <Suspense fallback={<LoadingPage />}> */}
                         <Canvas
                             shadows
                             camera={{
@@ -186,7 +186,7 @@ function BHM() {
 
                             <Experience />
                         </Canvas>
-                    </Suspense>
+                    {/* </Suspense> */}
 
                     {/* Text Overlay */}
                     <motion.div
