@@ -54,11 +54,11 @@ function App() {
       <Route path="/Diploma" element={<Diploma />} />
       <Route path="/Diploma/:course" element={<DiplomaPage />} />
       <Route path="/CareerPath" element={<CareerPath />} />
-      <Route path="/Aboutus/Partners" element={<Partners />} />
-      <Route path="/Aboutus/Messages" element={<Messages />} />
-      <Route path="/n" element={<OurTeam />} />
-      <Route path="/gallery&events" element={<Gallery />} />
-      <Route path="/Gallery&events/:id" element={<GalleryItem />} />
+      <Route path="/Partners" element={<Partners />} />
+      <Route path="/Messages" element={<Messages />} />
+      <Route path="/Team" element={<OurTeam />} />
+      <Route path="/Events" element={<Gallery />} />
+      <Route path="/Events/:id" element={<GalleryItem />} />
       <Route path="/Clubs/:clubId" element={<Clubs />} />
     </Routes>
     <Footer />

@@ -10,6 +10,7 @@ const Navbar = () => {
     const [activeDropdown, setActiveDropdown] = useState(null)
     const dropdownRefs = useRef({});
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const [isHovering, setIsHovering] = useState(false);
 
     // Check if screen size is mobile
     useEffect(() => {
@@ -28,25 +29,37 @@ const Navbar = () => {
         const handleClickOutside = (event) => {
             if (activeDropdown !== null &&
                 dropdownRefs.current[activeDropdown] &&
-                !dropdownRefs.current[activeDropdown].contains(event.target)) {
+                !dropdownRefs.current[activeDropdown].contains(event.target) &&
+                !isHovering) {
                 setActiveDropdown(null);
             }
         };
 
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [activeDropdown]);
+    }, [activeDropdown, isHovering]);
 
     const handleMouseEnter = (index) => {
         if (!isMobile) {
+            setIsHovering(true);
             setActiveDropdown(index);
         }
     };
 
     const handleMouseLeave = () => {
         if (!isMobile) {
-            setActiveDropdown(null);
+            setIsHovering(false);
+            // Only close if it was opened by hover, not by click
+            setTimeout(() => {
+                if (!isHovering) {
+                    setActiveDropdown(null);
+                }
+            }, 100);
         }
+    };
+
+    const handleDropdownClick = (index) => {
+        setActiveDropdown(activeDropdown === index ? null : index);
     };
 
     return (
@@ -70,7 +83,7 @@ const Navbar = () => {
                                 <>
                                     <div
                                         className="font-semibold text-gray-700 text-[16px] relative cursor-pointer flex items-center"
-                                        onClick={() => setActiveDropdown(activeDropdown === index ? null : index)}
+                                        onClick={() => handleDropdownClick(index)}
                                     >
                                         {item.name}
                                         <svg
@@ -213,7 +226,7 @@ const Navbar = () => {
                                 <div>
                                     <div
                                         className="flex items-center justify-center gap-1 font-medium py-2"
-                                        onClick={() => setActiveDropdown(activeDropdown === index ? null : index)}
+                                        onClick={() => handleDropdownClick(index)}
                                     >
                                         <span className="text-gray-700">{item.name}</span>
                                     </div>

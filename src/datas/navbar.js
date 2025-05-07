@@ -21,7 +21,7 @@ const navbar = [
 
 {
     name: "Programs",
-    href: "/Courses",
+
     hasDropdown: true,
     dropdown: [
         {
@@ -86,13 +86,15 @@ const navbar = [
     hasDropdown: false
 },
 {
-    name: "Galaxy +2",
-    href: "https://galaxy.edu.np/",
-    hasDropdown: false
-},
-{
     name: "Contact",
     href: "/contact",
     hasDropdown: false
-},]
+},
+{
+    name: "Apply",
+    href: "/EnquiryForm ",
+    image: "/image/MVIClogo.png",
+    hasDropdown: false
+},
+]
 export default navbar
