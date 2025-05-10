@@ -56,9 +56,9 @@ function App() {
       <Route path="/CareerPath" element={<CareerPath />} />
       <Route path="/Aboutus/Partners" element={<Partners />} />
       <Route path="/Aboutus/Messages" element={<Messages />} />
-      <Route path="/n" element={<OurTeam />} />
-      <Route path="/gallery&events" element={<Gallery />} />
-      <Route path="/Gallery&events/:id" element={<GalleryItem />} />
+      <Route path="/Team" element={<OurTeam />} />
+      <Route path="/Events" element={<Gallery />} />
+      <Route path="/Event/:id" element={<GalleryItem />} />
       <Route path="/Clubs/:clubId" element={<Clubs />} />
     </Routes>
     <Footer />
