@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import courses from '../../datas/Diploma/index';
+import Card from '../../components/Card';
 
 const DiplomaPage = () => {
   const { course } = useParams(); // Get the course parameter from the route
@@ -321,6 +322,7 @@ const DiplomaPage = () => {
           </div>
         </div>
       </div>
+      <Card className={`w-[400px]`}/>
     </div>
   );
 };
