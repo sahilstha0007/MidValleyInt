@@ -54,11 +54,19 @@ function App() {
       <Route path="/Diploma" element={<Diploma />} />
       <Route path="/Diploma/:course" element={<DiplomaPage />} />
       <Route path="/CareerPath" element={<CareerPath />} />
+<<<<<<< HEAD
       <Route path="/Partners" element={<Partners />} />
       <Route path="/Messages" element={<Messages />} />
       <Route path="/Team" element={<OurTeam />} />
       <Route path="/Events" element={<Gallery />} />
       <Route path="/Events/:id" element={<GalleryItem />} />
+=======
+      <Route path="/Aboutus/Partners" element={<Partners />} />
+      <Route path="/Aboutus/Messages" element={<Messages />} />
+      <Route path="/Team" element={<OurTeam />} />
+      <Route path="/Events" element={<Gallery />} />
+      <Route path="/Event/:id" element={<GalleryItem />} />
+>>>>>>> 6365196 (commit)
       <Route path="/Clubs/:clubId" element={<Clubs />} />
     </Routes>
     <Footer />
