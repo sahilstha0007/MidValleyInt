@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getAllClubs } from '../../datas/Clubs/Clubs';
 
 const ClubsList = () => {
@@ -16,7 +16,7 @@ const ClubsList = () => {
     }, []);
 
     // Filter clubs based on search term
-    const filteredClubs = clubs.filter(club => 
+    const filteredClubs = clubs.filter(club =>
         club.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         (club.description && club.description.toLowerCase().includes(searchTerm.toLowerCase()))
     );
@@ -80,22 +80,22 @@ const ClubsList = () => {
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         {filteredClubs.map((club) => (
-                            <div 
+                            <div
                                 key={club.id}
                                 className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer transform hover:-translate-y-1"
                                 onClick={() => handleClubClick(club.id)}
                             >
                                 <div className="relative">
-                                    <img 
-                                        src={club.frontImage || club.logo} 
-                                        alt={club.title} 
+                                    <img
+                                        src={club.frontImage || club.logo}
+                                        alt={club.title}
                                         className="w-full h-48 object-cover"
                                     />
                                     {club.logo && (
                                         <div className="absolute -bottom-8 left-4 w-16 h-16 bg-white rounded-full p-1 shadow-md">
-                                            <img 
-                                                src={club.logo} 
-                                                alt={`${club.title} logo`} 
+                                            <img
+                                                src={club.logo}
+                                                alt={`${club.title} logo`}
                                                 className="w-full h-full object-contain rounded-full"
                                             />
                                         </div>
@@ -127,17 +127,22 @@ const ClubsList = () => {
                     {/* Decorative elements */}
                     <div className="absolute top-0 left-10 w-20 h-20 bg-white rounded-full opacity-10"></div>
                     <div className="absolute bottom-0 right-10 w-32 h-32 bg-[#F1592D] rounded-full opacity-20"></div>
-                    
+
                     <div className="max-w-3xl mx-auto text-center relative z-10">
                         <h2 className="text-3xl font-bold mb-6">Join Our Community</h2>
                         <p className="text-xl mb-8">
                             Can't find what you're looking for? Start your own club and build a community around your interests!
                         </p>
-                        <button 
-                            className="bg-[#F1592D] hover:bg-[#d84a20] text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition-transform hover:scale-105"
-                        >
-                            Start a Club
-                        </button>
+                        <Link to="/Contact">
+                            <button
+                                className="bg-[#F1592D] hover:bg-[#d84a20] text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition-transform hover:scale-105"
+                                onClick={() => { navigate("/Contact"), scrollTo(0, 0) }}
+                            >
+
+                                Start a Club
+
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </div>
