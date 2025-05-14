@@ -168,7 +168,7 @@ export default function Gallery() {
                 animate="animate"
                 whileHover="hover"
                 transition={{ delay: 0.1 * (index % 8) }} // Staggered animation
-                onClick={() => navigate(`/gallery/${item.id}`)}
+                onClick={() => navigate(`/Events/${item.id}`)}
                 className="relative rounded-xl overflow-hidden shadow-xl cursor-pointer group"
               >
                 <div className="overflow-hidden">

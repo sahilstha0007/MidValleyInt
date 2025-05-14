@@ -2,7 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { Route, Routes } from 'react-router-dom'
+import { Link, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Navbar from './components/Navbar'
 import Footer from './components/Home/Footer'
@@ -19,19 +19,21 @@ import DiplomaPage from './pages/Diploma/DiplomaPage';
 import Partners from './pages/Aboutus/Partner';
 import Messages from './pages/Aboutus/Messages';
 import OurTeam from './pages/Aboutus/OurTeam';
-import Gallery from './pages/Galary/Galary';
-import GalleryItem from './pages/Galary/GalaryItem';
+import Gallery from './pages/Galary/Gallery';
+import GalleryItem from './pages/Galary/GalleryItems';
 import CareerPath from './pages/CareerPath';
 import Clubs from './pages/Clubs/ClubDetails';
 import Diploma from './pages/Diploma/Diploma';
+import ClubsList from './pages/Clubs/ClubsList'
 
 function App() {
 
   return (<>
     <div className=' flex items-center justify-end h-12 bg-[#003044]'>
       <ul className=' flex font-normal text-[#ebe8e8] text-[16px] pr-8  gap-6'>
-        <li>Pearson PTE</li>
-        <a href='https://hlms.help.edu.my/login/index.php'> <li>Login (LMS)</li> </a>
+        <Link to="/Clubs">Our CLubs</Link>
+        <Link to="/PTE">Pearson PTE</Link>
+        <Link to='https://hlms.help.edu.my/login/index.php'> <li>Login (LMS)</li> </Link>
       </ul>
     </div>
 
@@ -54,20 +56,13 @@ function App() {
       <Route path="/Diploma" element={<Diploma />} />
       <Route path="/Diploma/:course" element={<DiplomaPage />} />
       <Route path="/CareerPath" element={<CareerPath />} />
-<<<<<<< HEAD
       <Route path="/Partners" element={<Partners />} />
-      <Route path="/Messages" element={<Messages />} />
+      <Route path="/Message" element={<Messages />} />
       <Route path="/Team" element={<OurTeam />} />
       <Route path="/Events" element={<Gallery />} />
       <Route path="/Events/:id" element={<GalleryItem />} />
-=======
-      <Route path="/Aboutus/Partners" element={<Partners />} />
-      <Route path="/Aboutus/Messages" element={<Messages />} />
-      <Route path="/Team" element={<OurTeam />} />
-      <Route path="/Events" element={<Gallery />} />
-      <Route path="/Event/:id" element={<GalleryItem />} />
->>>>>>> 6365196 (commit)
       <Route path="/Clubs/:clubId" element={<Clubs />} />
+      <Route path="/Clubs" element={<ClubsList/>} />
     </Routes>
     <Footer />
   </>

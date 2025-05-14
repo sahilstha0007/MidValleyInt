@@ -87,7 +87,7 @@ const Gallery = () => {
       )}
 
       <div className="flex justify-center mt-10">
-        <button onClick={() =>{navigate(`/gallery&events`)}}  className="bg-white border border-gray-300 px-6 py-2 rounded-full text-sm font-semibold hover:bg-gray-200 transition">
+        <button onClick={() =>{navigate(`/Events`)}}  className="bg-white border border-gray-300 px-6 py-2 rounded-full text-sm font-semibold hover:bg-gray-200 transition">
           VIEW MORE
         </button>
       </div>
