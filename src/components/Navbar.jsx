@@ -235,20 +235,65 @@ const Navbar = () => {
                                         "flex flex-col w-full transition-all duration-300 overflow-hidden",
                                         activeDropdown === index ? "max-h-[2000px] opacity-100 mt-2" : "max-h-0 opacity-0"
                                     )}>
-                                        {item.dropdown.map((dropItem, dropIndex) => (
-                                            <NavLink
-                                                key={dropIndex}
-                                                to={dropItem.href}
-                                                onClick={() => {
-                                                    scrollTo(0, 0);
-                                                    setShowMenu(false);
-                                                    navigate(dropItem.href);
-                                                }}
-                                                className="block py-2 text-gray-600 hover:text-[#F1592D]"
-                                            >
-                                                {dropItem.name}
-                                            </NavLink>
-                                        ))}
+                                        {item.name === "Programs" ? (
+                                            // Special handling for Programs menu
+                                            item.dropdown.map((category, catIndex) => (
+                                                <div key={catIndex} className="mb-3 px-3">
+                                                    <h3 className="font-bold text-[#003044] mb-2">{category.category}</h3>
+                                                    <ul className="space-y-2 ml-3">
+                                                        {category.items.map((program, progIndex) => (
+                                                            <li key={progIndex}>
+                                                                <NavLink
+                                                                    to={program.href}
+                                                                    onClick={() => {
+                                                                        scrollTo(0, 0);
+                                                                        setShowMenu(false);
+                                                                    }}
+                                                                    className="block text-sm text-gray-700 hover:text-[#F1592D]"
+                                                                >
+                                                                    {program.name}
+                                                                    {program.affiliation && (
+                                                                        <div className="text-xs text-gray-500 mt-1">
+                                                                            {program.affiliation}
+                                                                        </div>
+                                                                    )}
+                                                                </NavLink>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                            ))
+                                        ) : item.name === "About" ? (
+                                            // For About menu
+                                            item.dropdown.map((dropItem, dropIndex) => (
+                                                <NavLink
+                                                    key={dropIndex}
+                                                    to={dropItem.href}
+                                                    onClick={() => {
+                                                        scrollTo(0, 0);
+                                                        setShowMenu(false);
+                                                    }}
+                                                    className="block py-2 px-3 text-gray-600 hover:text-[#F1592D]"
+                                                >
+                                                    {dropItem.name}
+                                                </NavLink>
+                                            ))
+                                        ) : (
+                                            // For other dropdown items
+                                            item.dropdown.map((dropItem, dropIndex) => (
+                                                <NavLink
+                                                    key={dropIndex}
+                                                    to={dropItem.href}
+                                                    onClick={() => {
+                                                        scrollTo(0, 0);
+                                                        setShowMenu(false);
+                                                    }}
+                                                    className="block py-2 px-3 text-gray-600 hover:text-[#F1592D]"
+                                                >
+                                                    {dropItem.name}
+                                                </NavLink>
+                                            ))
+                                        )}
                                     </div>
                                 </div>
                             ) : (

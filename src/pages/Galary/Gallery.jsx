@@ -1,10 +1,11 @@
 import { useNavigate} from 'react-router-dom';
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, scroll } from 'framer-motion';
 import { FaImages } from 'react-icons/fa'; // Changed to gallery-appropriate icon
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import galleryItems from '../../datas/Galary/galary';
+import { Scroll } from 'lucide-react';
 
 const cardVariants = {
   initial: { opacity: 0, y: 50 },
@@ -168,7 +169,7 @@ export default function Gallery() {
                 animate="animate"
                 whileHover="hover"
                 transition={{ delay: 0.1 * (index % 8) }} // Staggered animation
-                onClick={() => navigate(`/Events/${item.id}`)}
+                onClick={() =>{ navigate(`/Events/${item.id}`),scrollTo(0,0)}}
                 className="relative rounded-xl overflow-hidden shadow-xl cursor-pointer group"
               >
                 <div className="overflow-hidden">

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Flickity from 'flickity';
 import galleryItems from '../../datas/Galary/galary';
-import { FaArrowLeft, FaExpand, FaCompress, FaShare, FaCheck } from 'react-icons/fa';
+import { FaArrowLeft, FaExpand, FaCompress, FaShare, FaCheck, FaPlay } from 'react-icons/fa';
 
 import 'flickity/css/flickity.css';
 
@@ -229,6 +229,8 @@ export default function GalleryItem() {
         >
           {item.date}
         </motion.p>
+
+      
 
         {/* Main Carousel */}
         <motion.div 

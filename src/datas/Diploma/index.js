@@ -5,6 +5,7 @@ import DiplomaInFoodPreparationCulinaryArtsPatisserieLevel2 from './Diploma-in-F
 import DiplomaInProfessionalPatisserieAndConfectionaryLevel3 from './Diploma-in-Professional-Patisserie-and-Confectionary-Level-3';
 import IVQCertificateInProfessionalPatisserieAndConfectionary from './IVQ-Certificate-in-Professional-Patisserie-and-Confectionary';
 import InternationalAwardInBaristaSkills from './International-Award-in-Barista-Skills';
+import testimonials from './testimonials';
 
 export default {
   DiplomaInFoodPreparationCulinaryArtsLevel2,
@@ -13,4 +14,5 @@ export default {
   DiplomaInProfessionalPatisserieAndConfectionaryLevel3,
   IVQCertificateInProfessionalPatisserieAndConfectionary,
   InternationalAwardInBaristaSkills,
+  testimonials
 };

@@ -287,7 +287,7 @@ const Partners = () => {
       </div>
 
       {/* Partnering Institutes Section */}
-      <div className="bg-white mx-4 sm:mx-20 my-4 p-4 sm:p-5 md:p-30 rounded-lg shadow-md">
+      <div className="bg-white mx sm:mx-20 p-4 sm:p-5 md:p-30 rounded-lg shadow-md">
         <h2 className="text-3xl font-bold text-black text-center mb-8">{partneringInstitutes.title}</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8">
           {partneringInstitutes.imagePaths.map((image, index) => (

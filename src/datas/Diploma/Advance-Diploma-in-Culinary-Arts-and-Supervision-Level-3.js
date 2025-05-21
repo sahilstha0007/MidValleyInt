@@ -1,3 +1,4 @@
+
 const courseData = {
   frontImage: "/image/Diploma/front3.webp",
   title: "Advance Diploma in Culinary Arts and Supervision - Level 3 ",
@@ -75,29 +76,6 @@ const courseData = {
       "He has experience in kitchen operations, project management, staff training, menu planning, and more. Lokesh has also received certifications in food hygiene and has a strong understanding of the industry's operational aspects. His career showcases a deep commitment to the culinary and hospitality field.",
     ],
   },
-  testimonials: [
-    {
-      name: "Gordon Ramsay",
-      title: "City and Guilds Graduate",
-      description:
-        "Gordon Ramsay is a renowned British chef, restaurateur, and television personality. He graduated ...",
-      image: "/image/Diploma/gordon-ramsay.webp",
-    },
-    {
-      name: "Jamie Oliver",
-      title: "City & Guilds Graduate",
-      description:
-        "Jamie Oliver, the famous British chef, restaurant owner, and TV personality, has won the hearts o...",
-      image: "/image/Diploma/jamie-oliver.webp",
-    },
-    {
-      name: "Marcus Wareing",
-      title: "City and Guilds Graduate",
-      description:
-        "Marcus Wareing, a renowned British chef, has earned international career spanning over three deca...",
-      image: "/image/Diploma/marcus-wareing.webp",
-    },
-  ],
   faqs: [
     {
       question: "Who is suitable for this program?",

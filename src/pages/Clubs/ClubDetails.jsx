@@ -243,7 +243,7 @@ const Clubs = () => {
             </div>
 
             {/* Final Call to Action */}
-            <div className="bg-white mx-4 sm:mx-20 my-4 p-4 sm:p-5 md:p-30 rounded-lg shadow-md text-center">
+            <div className="bg-gray-100 mx-b sm:mx-20 my-4 p-4 sm:p-5 md:p-30 rounded-lg shadow-md text-center">
                 <h2 className="text-3xl font-bold text-black mb-6">{callToAction.title}</h2>
                 <p className="text-lg text-gray-700 max-w-3xl mx-auto mb-8">
                     {callToAction.description}
