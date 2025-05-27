@@ -3,6 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
 import defaultTestimonials from '../../../datas/Diploma/testimonials';
 
+// Add page-level animation variants
+const pageVariants = {
+  hidden: { opacity: 0, y: 60, scale: 0.97, rotate: -3 },
+  visible: { opacity: 1, y: 0, scale: 1, rotate: 0, transition: { duration: 0.8, ease: "backOut" } },
+  exit: { opacity: 0, y: -60, scale: 0.97, rotate: 3, transition: { duration: 0.6, ease: "backIn" } }
+};
+
 const TestimonialsSection = ({ isCulinary, isPatisserie, isBarista }) => {
   const testimonials = defaultTestimonials;
   
@@ -28,7 +35,14 @@ const TestimonialsSection = ({ isCulinary, isPatisserie, isBarista }) => {
 
   return (
     <>
-      <div className="bg-white mt-10 sm:mt-24 py-12 sm:py-16 lg:py-20 relative overflow-hidden">
+      <motion.div
+        className="bg-white mt-10 sm:mt-24 py-12 sm:py-16 lg:py-20 relative overflow-hidden"
+        initial="hidden"
+        whileInView="visible"
+        exit="exit"
+        viewport={{ once: false, amount: 0.2 }}
+        variants={pageVariants}
+      >
         {/* Course-specific background patterns */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {isCulinary && (
@@ -240,7 +254,7 @@ const TestimonialsSection = ({ isCulinary, isPatisserie, isBarista }) => {
         }
       `}</style>
 
-      </div>
+      </motion.div>
       <div className='m-20'>
       </div>
 

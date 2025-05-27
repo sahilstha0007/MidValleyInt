@@ -99,7 +99,7 @@ const Navbar = () => {
 
                                     {/* Desktop mega-dropdown menu */}
                                     <div
-                                        className={`absolute left-1/2 transform -translate-x-1/2 z-[60] ${
+                                        className={`absolute left-30git  transform -translate-x-1/2 z-[60] ${
                                             !isMobile && activeDropdown === index ? 'block' : 'hidden'
                                         } bg-white shadow-lg rounded-md py-6 px-8 w-[90vw] md:w-[700px] lg:w-[800px]`}
                                         style={{

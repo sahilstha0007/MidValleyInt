@@ -1,23 +1,80 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+
+// Add carouselVariants for smooth fade-in
+const carouselVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.7, ease: "easeInOut" } }
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 40, willChange: "opacity, transform" },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    willChange: "opacity, transform",
+    transition: { type: "spring", stiffness: 50, damping: 20, delay: i * 0.12 }
+  }),
+  exit: { opacity: 0, y: 40, willChange: "opacity, transform", transition: { duration: 0.4, ease: "easeInOut" } }
+};
+
+const slideVariants = {
+  enter: (direction) => ({
+    x: direction > 0 ? 400 : -400,
+    opacity: 0,
+    willChange: "opacity, transform"
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    willChange: "opacity, transform",
+    transition: { type: "spring", stiffness: 40, damping: 18 }
+  },
+  exit: (direction) => ({
+    x: direction < 0 ? 400 : -400,
+    opacity: 0,
+    position: "absolute",
+    willChange: "opacity, transform",
+    transition: { duration: 0.5, ease: "easeInOut" }
+  })
+};
+
+// Add page-level animation variants
+const pageVariants = {
+  hidden: { opacity: 0, y: 60, scale: 0.97, rotate: -3 },
+  visible: { opacity: 1, y: 0, scale: 1, rotate: 0, transition: { duration: 0.8, ease: "backOut" } },
+  exit: { opacity: 0, y: -60, scale: 0.97, rotate: 3, transition: { duration: 0.6, ease: "backIn" } }
+};
 
 const RelatedCoursesCarousel = ({ courseData, courses, isCulinary, isPatisserie, isBarista }) => {
+  // Only use the first 6 courses
+  const courseKeys = Object.keys(courses).slice(0, 6);
+  const totalSlides = Math.ceil(courseKeys.length / 3);
+
   const [carouselIndex, setCarouselIndex] = useState(0);
-  
-  // Simplified navigation functions - just change index without scrolling
+  const [direction, setDirection] = useState(0);
+  const navigate = useNavigate();
+
   const nextCarousel = () => {
-    setCarouselIndex((prevIndex) => 
-      (prevIndex + 1) % Math.ceil(Object.keys(courses).length)
-    );
+    setDirection(1);
+    setCarouselIndex((prevIndex) => (prevIndex + 1) % totalSlides);
   };
 
   const prevCarousel = () => {
-    setCarouselIndex((prevIndex) => 
-      prevIndex === 0 ? Math.ceil(Object.keys(courses).length) - 1 : prevIndex - 1
-    );
+    setDirection(-1);
+    setCarouselIndex((prevIndex) => (prevIndex === 0 ? totalSlides - 1 : prevIndex - 1));
   };
   
   return (
-    <div className="p-8 sm:px-20 relative overflow-hidden">
+    <motion.div
+      className="p-8 sm:px-20 relative overflow-hidden"
+      initial="hidden"
+      whileInView="visible"
+      exit="exit"
+      viewport={{ once: false, amount: 0.2 }}
+      variants={pageVariants}
+    >
       {/* Dynamic decorations based on course type */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {isCulinary ? (
@@ -191,83 +248,116 @@ const RelatedCoursesCarousel = ({ courseData, courses, isCulinary, isPatisserie,
         {/* Visual indicator for mobile users - removed swipe instructions */}
         
         {/* Carousel container with no scrolling */}
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden min-h-[400px]">
           <div className="flex">
-            {Object.entries(courses).map(([courseKey, courseValue], index) => (
-              <div 
-                key={index}
-                className={`w-full flex-shrink-0 px-2 sm:px-4 ${index === carouselIndex ? 'block' : 'hidden'}`}
+            <AnimatePresence initial={false} custom={direction} mode="wait">
+              <motion.div
+                key={carouselIndex}
+                className="w-full flex-shrink-0 px-2 sm:px-4 block"
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ type: "spring", stiffness: 40, damping: 18 }}
+                style={{ width: '100%' }}
               >
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
                   {[0, 1, 2].map((itemIndex) => {
-                    // Calculate the actual index in a circular manner
-                    const actualIndex = (index * 3 + itemIndex) % Object.keys(courses).length;
-                    const courseKeys = Object.keys(courses);
+                    const actualIndex = carouselIndex * 3 + itemIndex;
+                    if (actualIndex >= courseKeys.length) return null;
                     const currentCourseKey = courseKeys[actualIndex];
-                    const displayCourse = { 
+                    const displayCourse = {
                       title: courses[currentCourseKey].title,
                       image: courses[currentCourseKey].frontImage
                     };
-                    
+
                     return (
-                      <a
+                      <motion.div
                         key={itemIndex}
-                        href={`/Diploma/${currentCourseKey}`}
-                        className="block overflow-hidden rounded-lg transform transition-all duration-300 hover:-translate-y-2 hover:shadow-lg"
+                        className="block overflow-hidden rounded-lg transform transition-all duration-300 hover:-translate-y-2 hover:shadow-lg cursor-pointer"
+                        variants={cardVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        custom={itemIndex}
+                        onClick={() => {
+                          navigate(`/Diploma/${currentCourseKey}`);
+                          window.scrollTo(0, 0);
+                        }}
+                        whileHover={{ scale: 1.04, boxShadow: "0 8px 32px rgba(0,0,0,0.12)" }}
+                        whileTap={{ scale: 0.97 }}
                       >
                         <div className="w-full h-48 sm:h-56 lg:h-64 bg-gray-200 flex items-center justify-center rounded-lg relative">
-                          <img
+                          <motion.img
                             src={displayCourse.image}
                             alt={displayCourse.title}
                             className="w-full h-full object-cover rounded-lg"
+                            initial={{ opacity: 0, scale: 0.96 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.5, delay: 0.2 + itemIndex * 0.1, ease: "easeOut" }}
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-lg opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
                         </div>
                         <h4 className="text-lg font-semibold text-center text-[#0f4c5c] mt-4 hover:underline line-clamp-2">
                           {displayCourse.title}
                         </h4>
-                      </a>
+                      </motion.div>
                     );
                   })}
                 </div>
-              </div>
-            ))}
+              </motion.div>
+            </AnimatePresence>
           </div>
-
-          {/* Carousel controls - larger touch targets on mobile */}
-          <button 
+          {/* Carousel controls */}
+          <motion.button
             className="absolute top-1/2 left-0 sm:left-2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-[#0f4c5c] p-3 sm:p-2 rounded-full shadow-md z-20"
             onClick={prevCarousel}
             aria-label="Previous courses"
+            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.1 }}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-          </button>
-          
-          <button 
+          </motion.button>
+          <motion.button
             className="absolute top-1/2 right-0 sm:right-2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-[#0f4c5c] p-3 sm:p-2 rounded-full shadow-md z-20"
             onClick={nextCarousel}
             aria-label="Next courses"
+            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.1 }}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
-          </button>
+          </motion.button>
           
           {/* Carousel indicators */}
-          <div className="flex justify-center mt-4 gap-2">
-            {Array.from({ length: Math.ceil(Object.keys(courses).length) }).map((_, i) => (
+          <div
+            className="flex justify-center mt-4 gap-2"
+            style={{
+              opacity: 1,
+              transition: 'opacity 0.3s',
+              pointerEvents: direction !== 0 ? 'none' : 'auto',
+              visibility: direction !== 0 ? 'hidden' : 'visible'
+            }}
+          >
+            {Array.from({ length: totalSlides }).map((_, i) => (
               <button
                 key={i}
                 className={`w-3 h-3 rounded-full ${i === carouselIndex ? 'bg-[#0f4c5c]' : 'bg-gray-300'}`}
-                onClick={() => setCarouselIndex(i)}
+                onClick={() => {
+                  setDirection(i > carouselIndex ? 1 : -1);
+                  setCarouselIndex(i);
+                }}
+                disabled={direction !== 0}
               />
             ))}
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -1,5 +1,3 @@
-// Import the shared testimonials
-import testimonials from './testimonials';
 
 const courseData = {
   frontImage: "/image/Diploma/front4.webp",

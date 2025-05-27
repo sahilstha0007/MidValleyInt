@@ -1,10 +1,36 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+
+const containerVariants = {
+  hidden: { opacity: 0, scale: 0.96, y: 60 },
+  visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.8, ease: "backOut" } }
+};
+
+const imageVariants = {
+  hidden: { opacity: 0, scale: 0.85, rotate: 8, x: -40 },
+  visible: { opacity: 1, scale: 1, rotate: 0, x: 0, transition: { duration: 0.9, ease: "backOut" } }
+};
+
+const textVariants = {
+  hidden: { opacity: 0, x: 40 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.7, delay: 0.18 + i * 0.09, ease: "backOut" }
+  })
+};
 
 const InstructorSection = ({ instructorData, isCulinary, isPatisserie, isBarista }) => {
   if (!instructorData) return null;
 
   return (
-    <div className="bg-white p-4 mt-15 sm:mt-24 sm:p-8 lg:p-12 rounded-lg shadow-md lg-mb-8 relative overflow-hidden">
+    <motion.div
+      className="bg-white p-4 mt-15 sm:mt-24 sm:p-8 lg:p-12 rounded-lg shadow-md lg-mb-8 relative overflow-hidden"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: false, amount: 0.2 }}
+      variants={containerVariants}
+    >
       {/* Add floating elements based on course type */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {isCulinary && (
@@ -45,26 +71,74 @@ const InstructorSection = ({ instructorData, isCulinary, isPatisserie, isBarista
         )}
       </div>
       
-      <h3 className="text-2xl font-bold mb-6 text-center text-black relative z-10">Meet The Instructor</h3>
+      <motion.h3
+        className="text-2xl font-bold mb-6 text-center text-black relative z-10"
+        initial={{ opacity: 0, scale: 0.95, y: 30 }}
+        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.2 }}
+        transition={{ duration: 0.8, ease: "backOut" }}
+      >
+        Meet The Instructor
+      </motion.h3>
       <div className="flex flex-col lg:flex-row items-center gap-8">
-        <div className="flex-shrink-0 w-full lg:w-1/3">
-          <img
+        <motion.div
+          className="flex-shrink-0 w-full lg:w-1/3"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+          variants={imageVariants}
+        >
+          <motion.img
             src={instructorData.image}
             alt={instructorData.name}
             className="w-full h-auto sm:h-[50vh] lg:h-[60vh] object-cover rounded-lg"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+            variants={imageVariants}
+            whileHover={{ scale: 1.06, rotate: -2, boxShadow: "0 8px 32px rgba(0,0,0,0.13)" }}
           />
-        </div>
-        <div className="flex-1">
-          <h4 className="text-xl font-bold text-black mb-2">{instructorData.name}</h4>
-          <p className="text-sm font-semibold text-gray-600 mb-4">{instructorData.title}</p>
+        </motion.div>
+        <motion.div
+          className="flex-1"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+        >
+          <motion.h4
+            className="text-xl font-bold text-black mb-2"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: "backOut" }}
+          >
+            {instructorData.name}
+          </motion.h4>
+          <motion.p
+            className="text-sm font-semibold text-gray-600 mb-4"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.1, ease: "backOut" }}
+          >
+            {instructorData.title}
+          </motion.p>
           {instructorData.description.map((paragraph, index) => (
-            <p key={index} className="text-gray-700 text-justify leading-relaxed mt-4 px-4 sm:px-0">
+            <motion.p
+              key={index}
+              className="text-gray-700 text-justify leading-relaxed mt-4 px-4 sm:px-0"
+              variants={textVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
+              custom={index}
+            >
               {paragraph}
-            </p>
+            </motion.p>
           ))}
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

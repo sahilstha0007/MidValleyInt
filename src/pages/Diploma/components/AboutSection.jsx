@@ -1,8 +1,29 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+
+const textVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } }
+};
+
+const imageVariants = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.6, delay: 0.2 + i * 0.12, ease: "easeOut" }
+  })
+};
 
 const AboutSection = ({ aboutContent, aboutImages, isCulinary, isPatisserie, isBarista }) => {
   return (
-    <div className="mx-4 sm:mx-20 my-4 p-4 sm:p-5 md:p-20 rounded-lg lg-mb-8 relative overflow-hidden">
+    <motion.div
+      className="mx-2 sm:mx-4 md:mx-10 lg:mx-20 my-4 p-2 sm:p-4 md:p-10 lg:p-20 rounded-lg lg-mb-8 relative overflow-hidden"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: false, amount: 0.2 }}
+      variants={textVariants}
+    >
       {/* Course-specific floating elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {isCulinary && (
@@ -72,26 +93,44 @@ const AboutSection = ({ aboutContent, aboutImages, isCulinary, isPatisserie, isB
         )}
       </div>
 
-      <h2 className="text-black text-3xl font-bold text-center mb-6 relative z-10">
+      <motion.h2
+        className="text-black text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-4 sm:mb-6 relative z-10"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.2 }}
+        transition={{ duration: 0.7 }}
+      >
         {aboutContent.heading}
-      </h2>
-      <div className="flex flex-col md:flex-row gap-8">
-        <div className="bg-[#003044] text-white p-4 rounded-xl flex-1">
-          <p className="text-lg leading-relaxed text-justify">{aboutContent.text}</p>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4 flex-1">
+      </motion.h2>
+      <div className="flex flex-col md:flex-row gap-4 md:gap-8">
+        <motion.div
+          className="bg-[#003044] text-white p-3 sm:p-4 md:p-6 rounded-xl flex-1 min-w-0"
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+        >
+          <p className="text-base sm:text-lg leading-relaxed text-justify">{aboutContent.text}</p>
+        </motion.div>
+        <div className="grid grid-cols-2 gap-2 sm:gap-4 flex-1 min-w-0">
           {aboutImages.map((img, index) => (
-            <img
+            <motion.img
               src={img}
               alt={`About course ${index + 1}`}
               key={index}
-              className="rounded-lg object-cover w-full h-auto sm:h-40 md:h-45 lg:h-50"
+              className="rounded-lg object-cover w-full h-28 sm:h-36 md:h-40 lg:h-48 xl:h-56 transition-all"
               loading="lazy"
+              variants={imageVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
+              custom={index}
+              style={{ aspectRatio: "4/3", minWidth: 0 }}
             />
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

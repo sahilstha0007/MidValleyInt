@@ -14,5 +14,4 @@ export default {
   DiplomaInProfessionalPatisserieAndConfectionaryLevel3,
   IVQCertificateInProfessionalPatisserieAndConfectionary,
   InternationalAwardInBaristaSkills,
-  testimonials
 };

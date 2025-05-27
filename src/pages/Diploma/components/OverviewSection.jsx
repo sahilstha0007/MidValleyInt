@@ -1,9 +1,35 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { animationStyles } from './animations';
+
+const containerVariants = {
+  hidden: { opacity: 0, y: 40, scale: 0.97 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, ease: "backOut" } }
+};
+
+const titleVariants = {
+  hidden: { opacity: 0, y: 30, scale: 0.96 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, delay: 0.1, ease: "backOut" } }
+};
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, delay: 0.15 + i * 0.07, ease: "easeOut" }
+  })
+};
 
 const OverviewSection = ({ title, overview, additionalDetails }) => {
   return (
-    <div className="bg-white mx-4 sm:mx-20 my-4 p-4 sm:p-5 md:p-20 rounded-lg shadow-md lg-mb-8 relative overflow-hidden">
+    <motion.div
+      className="bg-white mx-4 sm:mx-20 my-4 p-4 sm:p-5 md:p-20 rounded-lg shadow-md lg-mb-8 relative overflow-hidden"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: false, amount: 0.2 }}
+      variants={containerVariants}
+    >
       {/* Decorative culinary elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Chef hat */}
@@ -115,23 +141,60 @@ const OverviewSection = ({ title, overview, additionalDetails }) => {
       {/* Add global keyframe styles */}
       <style jsx="true" global="true">{animationStyles}</style>
       
-      <h3 className="text-2xl font-bold mb-4 text-center text-black relative z-10">{title}</h3>
-      <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-6">
+      <motion.h3
+        className="text-2xl font-bold mb-4 text-center text-black relative z-10"
+        variants={titleVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.2 }}
+      >
+        {title}
+      </motion.h3>
+      <motion.div
+        className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-6"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.2 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+      >
         <a
-          href="/path/to/brochure.pdf" // Replace with the actual path to the brochure file
+          href="/path/to/brochure.pdf"
           download
           className="bg-[#0f4c5c] text-white px-6 py-2 rounded-full hover:bg-[#083a45] transition duration-300 text-center"
         >
           Download Brochure
         </a>
-      </div>
-      <p className="text-gray-700 mb-4 text-justify whitespace-pre-line px-0 sm:px-10">{overview}</p>
-      <ul className="list-disc list-inside text-gray-700 space-y-2 px-0 sm:px-10">
+      </motion.div>
+      <motion.p
+        className="text-gray-700 mb-4 text-justify whitespace-pre-line px-0 sm:px-10"
+        variants={fadeInUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.2 }}
+        custom={0}
+      >
+        {overview}
+      </motion.p>
+      <motion.ul
+        className="list-disc list-inside text-gray-700 space-y-2 px-0 sm:px-10"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.2 }}
+      >
         {additionalDetails.map((detail, index) => (
-          <li key={index}>{detail}</li>
+          <motion.li
+            key={index}
+            variants={fadeInUp}
+            custom={index + 1}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+          >
+            {detail}
+          </motion.li>
         ))}
-      </ul>
-    </div>
+      </motion.ul>
+    </motion.div>
   );
 };
 

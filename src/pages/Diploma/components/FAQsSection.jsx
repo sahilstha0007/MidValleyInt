@@ -42,10 +42,16 @@ const faqItemVariant = {
   }
 };
 
+// Page-level animation
+const pageVariants = {
+  hidden: { opacity: 0, y: 60, scale: 0.97, rotate: -3 },
+  visible: { opacity: 1, y: 0, scale: 1, rotate: 0, transition: { duration: 0.8, ease: "backOut" } },
+  exit: { opacity: 0, y: -60, scale: 0.97, rotate: 3, transition: { duration: 0.6, ease: "backIn" } }
+};
+
 const FAQsSection = ({ faqs, isCulinary, isPatisserie, isBarista }) => {
   const [openIndex, setOpenIndex] = useState(null);
   const faqRef = useRef(null);
-  const faqInView = useInView(faqRef, { margin: "-100px" });
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -54,7 +60,15 @@ const FAQsSection = ({ faqs, isCulinary, isPatisserie, isBarista }) => {
   if (!faqs || faqs.length === 0) return null;
   
   return (
-    <div className="bg-gradient-to-b from-gray-50 to-gray-200 py-16 relative overflow-hidden" ref={faqRef}>
+    <motion.div
+      className="bg-gradient-to-b from-gray-50 to-gray-200 py-16 relative overflow-hidden"
+      ref={faqRef}
+      initial="hidden"
+      whileInView="visible"
+      exit="exit"
+      viewport={{ once: false, amount: 0.2 }}
+      variants={pageVariants}
+    >
       <div className="absolute inset-0 opacity-5" style={{
         backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM36 6V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
         backgroundSize: "60px 60px"
@@ -110,7 +124,8 @@ const FAQsSection = ({ faqs, isCulinary, isPatisserie, isBarista }) => {
       <motion.h3 
         className="text-3xl font-bold text-center mb-10 text-[#003044] relative z-10"
         initial="hidden"
-        animate={faqInView ? "visible" : "hidden"}
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.2 }}
         variants={slideUp}
       >
         Frequently Asked Questions
@@ -119,7 +134,8 @@ const FAQsSection = ({ faqs, isCulinary, isPatisserie, isBarista }) => {
       <motion.div 
         className="container mx-auto px-4 max-w-3xl relative z-10"
         initial="hidden"
-        animate={faqInView ? "visible" : "hidden"}
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.2 }}
         variants={faqContainerVariant}
       >
         <div className="space-y-4">
@@ -165,7 +181,7 @@ const FAQsSection = ({ faqs, isCulinary, isPatisserie, isBarista }) => {
           ))}
         </div>
       </motion.div>
-    </div>
+    </motion.div>
   );
 };
 
