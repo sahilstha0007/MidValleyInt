@@ -46,6 +46,7 @@ const navbar = [
             },
             {
                 category: "Diploma Programs",
+                href: "/diploma", // Make the category clickable
                 items: [
                     {
                         name: "Diploma in Food Preparation Culinary Arts Level 2",

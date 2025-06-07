@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import messagesData from '../../datas/Messages/messages';
 import { FaQuoteLeft, FaQuoteRight } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 // Animation variants for scroll direction
 const fadeInUp = {
@@ -153,7 +154,9 @@ const Messages = () => {
       >
         <div className="container mx-auto px-4 relative z-10">
           <p className="text-sm tracking-wide font-medium">
-            Home &gt; <span className="text-[#F1592D] font-bold">{messagesData.title}</span>
+            <Link to="/" className="hover:text-[#F1592D] transition-colors duration-200">Home</Link>
+            &nbsp;&gt;&nbsp;
+            <span className="text-[#F1592D] font-bold">{messagesData.title}</span>
           </p>
         </div>
       </motion.div>

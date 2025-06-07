@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { partnerData } from '../../datas/Partners';
 import { motion } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 
 // Animation variants
 const fancyFadeIn = {
@@ -55,6 +56,12 @@ const staggerContainer = {
 };
 
 const Partners = () => {
+  // Scroll to top on route change
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [location.pathname]);
+
   const {
     frontImage,
     title,
