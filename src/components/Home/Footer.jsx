@@ -1,4 +1,6 @@
 import { FaApple, FaGooglePlay, FaEnvelope, FaPhone, FaFacebookF, FaTwitter, FaLinkedinIn, FaPinterestP } from "react-icons/fa";
+import navbar from "../../datas/navbar";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -28,37 +30,32 @@ export default function Footer() {
               <FaPinterestP size={18} />
             </a>
           </div>
-        </div> 
+        </div>
 
         {/* Pages */}
         <div className="pl-0 sm:pl-8 lg:pl-16 pt-2">
-          <h3 className="text-lg md:text-xl font-semibold mb-3">Pages</h3>
-          <ul className="space-y-2 text-sm">
-            <li><a href="#" className="hover:text-orange-600 transition-colors">Home</a></li>
-            <li><a href="#" className="hover:text-orange-600 transition-colors">About Us</a></li>
-            <li><a href="#" className="hover:text-orange-600 transition-colors">Integrations</a></li>
-            <li><a href="#" className="hover:text-orange-600 transition-colors">Features</a></li>
-            <li><a href="#" className="hover:text-orange-600 transition-colors">Pricing</a></li>
-            <li><a href="#" className="hover:text-orange-600 transition-colors">Contact Us</a></li>
+          <h3 className="text-lg md:text-xl font-semibold mb-3">Links</h3>
+          <ul className="space-y-2 text-md">
+           {navbar?.map((item) => (
+           <li className="hover:text-orange-600 transition-colors">
+             <Link to={item.href} onClick={()=>scrollTo(0,0)}>{item.name}</Link></li>
+           ))}
           </ul>
         </div>
 
         {/* Utility Pages */}
         <div className="pl-0 sm:pl-8 lg:pl-16 pt-2">
-          <h3 className="text-lg md:text-xl font-semibold mb-3">Utility Pages</h3>
-          <ul className="space-y-2 text-sm">
+          <h3 className="text-lg md:text-xl font-bold mb-3">Programmes</h3>
+          <ul className="space-y-2 text-md">
             <li><a href="#" className="hover:text-orange-600 transition-colors">Integrations</a></li>
             <li><a href="#" className="hover:text-orange-600 transition-colors">Blog</a></li>
-            <li><a href="#" className="hover:text-orange-600 transition-colors">Contact Us</a></li>
-            <li><a href="#" className="hover:text-orange-600 transition-colors">Pricing</a></li>
-            <li><a href="#" className="hover:text-orange-600 transition-colors">Project Details</a></li>
-            <li><a href="#" className="hover:text-orange-600 transition-colors">Our Team</a></li>
+            
           </ul>
         </div>
 
         {/* Contact Box */}
         <div className="bg-orange-100 p-4 sm:p-6 rounded-xl shadow-md w-full">
-          <h4 className="text-orange-600 text-sm font-semibold mb-1">Address</h4>
+          <h4 className="text-orange-600 text-sm font-bold mb-1">Address</h4>
           <h2 className="text-lg md:text-xl font-bold mb-2">Ready To Get Started?</h2>
           <p className="text-sm mb-4">
           Join us in our journey as we push boundaries and embrace innovation

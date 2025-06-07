@@ -15,4 +15,13 @@ body{
   scrollbar-width: none;     /* Firefox */
 }
 
+.outlined-text {
+    color: white;
+    text-shadow:
+      -2px -2px 0 rgb(30, 82, 252),
+       2px -2px 0 rgb(30, 82, 252),
+      -2px  2px 0 rgb(30, 82, 252),
+       2px  2px 0 rgb(30, 82, 252);
+}
+
 

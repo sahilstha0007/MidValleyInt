@@ -1,216 +1,228 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from "react"
+import { ChevronUp, ChevronDown, Quote } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 
-export default function Alumni() {
+const Alumni = () => {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isAnimating, setIsAnimating] = useState(false)
+  const containerRef = useRef(null)
+
   const testimonials = [
     {
-      id: 1,
-      name: "Courtney Henry",
-      position: "Nursing Assistant",
+      name: "Sarah M",
+      role: "E-Commerce Owner",
+      text: "SEOX Transformed Our Online Presence. We Saw A 300% Increase In Website Months!",
+      bg: "bg-gray-50",
+      textColor: "text-gray-800",
       image: "/img/holi.jpg",
-      rating: 5,
-      text: "Consectetur adipiscing elit. Integer nunc viverra laoreet est the is porta pretium metus aliquam eget maecenas porta is nunc viverra Aenean"
     },
     {
-      id: 2,
-      name: "Esther Howard",
-      position: "Nursing Assistant",
-      image: "/img/holi.jpg",
-      rating: 5,
-      text: "Consectetur adipiscing elit. Integer nunc viverra laoreet est the is porta pretium metus aliquam eget maecenas porta is nunc viverra Aenean"
+      name: "John Doe",
+      role: "Marketing Manager",
+      text: "Team Is Proactive, Professional, Results-Driven. Highly Recommend Their Services!",
+      bg: "bg-gray-50",
+      textColor: "text-gray-800",
+      image: "/img/girl.png",
     },
     {
-      id: 3,
-      name: "Robert Johnson",
-      position: "Web Developer",
-      image: "/img/holi.jpg",
-      rating: 5,
-      text: "Exceptionally intuitive platform with outstanding customer support. The digital solutions provided have transformed our business operations completely."
+      name: "Alex Hales",
+      role: "E-Commerce Owner",
+      text: "Thanks To SEOX, Our Revenue Doubled Last Year. They're Truly The Best In The Industry.",
+      bg: "bg-gray-50",
+      textColor: "text-gray-800",
+      image: "/img/bachelor-1.webp",
     },
     {
-      id: 4,
-      name: "Amelia Garcia",
-      position: "Marketing Director",
+      name: "Emily Chen",
+      role: "Tech Startup Founder",
+      text: "Incredible SEO Strategy That Took Our Startup From Zero To Trending!",
+      bg: "bg-gray-50",
+      textColor: "text-gray-800",
+      image: "/img/bachelor-2.webp",
+    },
+    {
+      name: "Michael Rodriguez",
+      role: "Digital Marketing Lead",
+      text: "Most Innovative SEO Approach I've Seen. Truly Transformative!",
+      bg: "bg-gray-50",
+      textColor: "text-gray-800",
+      image: "/img/bachelor-3.webp",
+    },
+    {
+      name: "Lisa Wong",
+      role: "E-Commerce Marketing Director",
+      text: "Unbelievable Results. Our Organic Traffic Increased By 500%!",
+      bg: "bg-gray-50",
+      textColor: "text-gray-800",
       image: "/img/holi.jpg",
-      rating: 5,
-      text: "Their attention to detail and prompt delivery exceeded all expectations. Our company has seen remarkable growth since implementing their solutions."
-    }
-  ];
+    },
+  ]
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [autoplay, setAutoplay] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
-  const autoplayRef = useRef(null);
-  const totalTestimonials = testimonials.length;
+  const handleNext = () => {
+    if (isAnimating) return
+    setIsAnimating(true)
+    setCurrentIndex((prevIndex) => (prevIndex >= testimonials.length - 3 ? 0 : prevIndex + 1))
+    setTimeout(() => setIsAnimating(false), 600)
+  }
 
-  // Check screen size for responsive behavior
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    // Initial check
-    checkMobile();
-    
-    // Add event listener for window resize
-    window.addEventListener('resize', checkMobile);
-    
-    // Cleanup
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  const nextSlide = () => {
-    // On mobile, always move 1 slide
-    // On desktop, continue with normal behavior based on visible slides
-    setCurrentIndex((prevIndex) => {
-      const nextIndex = prevIndex + 1;
-      return nextIndex >= totalTestimonials ? 0 : nextIndex;
-    });
-  };
-
-  const prevSlide = () => {
-    // On mobile, always move 1 slide
-    // On desktop, continue with normal behavior based on visible slides
-    setCurrentIndex((prevIndex) => {
-      const prevSlideIndex = prevIndex - 1;
-      return prevSlideIndex < 0 ? totalTestimonials - 1 : prevSlideIndex;
-    });
-  };
-
-  const goToSlide = (index) => {
-    setCurrentIndex(index);
-  };
+  const handlePrev = () => {
+    if (isAnimating) return
+    setIsAnimating(true)
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? testimonials.length - 3 : prevIndex - 1))
+    setTimeout(() => setIsAnimating(false), 600)
+  }
 
   useEffect(() => {
-    if (autoplay) {
-      autoplayRef.current = setInterval(() => {
-        nextSlide();
-      }, 5000); // Change slide every 5 seconds
-    }
-
-    return () => {
-      if (autoplayRef.current) {
-        clearInterval(autoplayRef.current);
+    const autoAdvanceTimer = setInterval(() => {
+      if (!isAnimating) {
+        handleNext()
       }
-    };
-  }, [autoplay, currentIndex, isMobile]);
+    }, 8000)
+    return () => clearInterval(autoAdvanceTimer)
+  }, [isAnimating])
 
-  // Function to handle pause/resume of autoplay on hover
-  const handleMouseEnter = () => setAutoplay(false);
-  const handleMouseLeave = () => setAutoplay(true);
+  const allTestimonials = [...testimonials, ...testimonials]
 
-  // Render star rating
-  const renderRating = (rating) => {
-    const stars = [];
-    for (let i = 0; i < rating; i++) {
-      stars.push(
-        <svg key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
-        </svg>
-      );
-    }
-    return stars;
-  };
+  const TestimonialCard = ({ testimonial }) => (
+    <div
+      className={`rounded-xl p-6 flex items-start gap-5 ${testimonial.bg} ${testimonial.textColor} 
+        shadow-md hover:shadow-lg transition-all duration-300 ease-in-out`}
+    >
+      <img
+        src={testimonial.image || "/placeholder.svg"}
+        alt={testimonial.name}
+        className="w-20 h-20 rounded-full object-cover object-top border-2 border-white shadow-md"
+      />
+      <div className="flex-1">
+        <p className="font-bold text-lg">{testimonial.name}</p>
+        <p className="text-sm text-indigo-700 font-medium">{testimonial.role}</p>
+        <p className="mt-3 text-base leading-relaxed">{testimonial.text}</p>
+      </div>
+      <div className="text-5xl font-bold text-indigo-500 ml-auto">
+        <Quote size={40} />
+      </div>
+    </div>
+  )
 
   return (
-    <div className="bg-indigo-900 flex flex-col">
-      
+    <section className="px-6 md:px-12 lg:px-32 py-20 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-12">
+      {/* Left content */}
+      <div className="w-full lg:w-1/2 relative">
+        {/* Navigation arrows */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="absolute -left-10 top-1/2 transform -translate-y-1/2 flex flex-col space-y-3 z-10"
+        >
+          <motion.button
+            whileHover={{ scale: 1.1, backgroundColor: "#e5e7eb" }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handlePrev}
+            disabled={isAnimating}
+            className="bg-white shadow-md hover:shadow-lg p-3 rounded-full transition-all duration-300 disabled:opacity-50"
+          >
+            <ChevronUp className="w-6 h-6 text-indigo-700" />
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.1, backgroundColor: "#e5e7eb" }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleNext}
+            disabled={isAnimating}
+            className="bg-white shadow-md hover:shadow-lg p-3 rounded-full transition-all duration-300 disabled:opacity-50"
+          >
+            <ChevronDown className="w-6 h-6 text-indigo-700" />
+          </motion.button>
+        </motion.div>
 
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-16 flex-grow">
-        <div className="max-w-6xl mx-auto">
-          {/* Testimonial Section */}
-          <div className="mb-8">
-            <div className="inline-block bg-blue-100 text-blue-800 px-4 py-2 rounded-full mb-4">
-              Alumni
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">What Our Students Say</h2>
-          </div>
-
-          <div className="flex flex-col md:flex-row">
-            {/* Left side stats */}
-            <div className="md:w-1/4 mb-6 md:mb-0">
-              <div className="bg-white rounded-full p-1 w-20 h-20 flex items-center justify-center mb-4">
-                <img src="/img/holi.jpg" alt="Profile" className="rounded-full" />
-              </div>
-              <div className="flex mb-2">
-                {renderRating(5)}
-              </div>
-              <p className="text-white font-semibold">15k+ (reviews)</p>
-            </div>
-
-            {/* Testimonial slider */}
-            <div 
-              className="md:w-3/4 relative"
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            >
-              <div className="overflow-hidden">
-                <div 
-                  className="flex transition-transform duration-500 ease-in-out"
-                  style={{ 
-                    transform: `translateX(-${currentIndex * (isMobile ? 100 : 50)}%)` 
-                  }}
+        {/* Testimonials */}
+        <div className="space-y-8" ref={containerRef}>
+          <AnimatePresence initial={false} mode="wait">
+            {[0, 1, 2].map((offset) => {
+              const testimonial = allTestimonials[(currentIndex + offset) % testimonials.length]
+              return (
+                <motion.div
+                  key={`${currentIndex}-${offset}`}
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -50 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
                 >
-                  {testimonials.map((testimonial) => (
-                    <div 
-                      key={testimonial.id} 
-                      className={`${isMobile ? 'w-full' : 'w-1/2'} flex-shrink-0 px-2`}
-                    >
-                      <div className="bg-blue-50 rounded-lg p-6 h-full relative">
-                      
-                        <h3 className="text-blue-900 text-xl font-bold mt-8">{testimonial.name}</h3>
-                        <p className="text-blue-600 mb-4">{testimonial.position}</p>
-                        <p className="text-gray-600">{testimonial.text}</p>
-                        <div className="absolute -left-2 -top-2 w-16 h-16 rounded-full overflow-hidden border-4 border-white">
-                          <img src={testimonial.image} alt={testimonial.name} className="w-full h-full object-cover" />
-                        </div>
-                        <div className="absolute right-6 top-6 text-orange-400">
-                          <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                          </svg>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Navigation buttons */}
-              <div className="flex justify-start mt-6 space-x-2">
-                <button 
-                  onClick={prevSlide}
-                  className="bg-white p-3 rounded-full hover:bg-gray-100 transition-colors"
-                >
-                  <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-                  </svg>
-                </button>
-                <button 
-                  onClick={nextSlide}
-                  className="bg-blue-800 p-3 rounded-full hover:bg-blue-900 transition-colors"
-                >
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              </div>
-
-              {/* Slide indicators */}
-              <div className="flex justify-center mt-6">
-                {Array.from({ length: isMobile ? totalTestimonials : totalTestimonials - 1 }).map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => goToSlide(index)}
-                    className={`w-2 h-2 mx-1 rounded-full transition-colors ${
-                      currentIndex === index ? 'bg-white' : 'bg-blue-300'
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
+                  <TestimonialCard testimonial={testimonial} />
+                </motion.div>
+              )
+            })}
+          </AnimatePresence>
         </div>
-      </main>
-    </div>
-  );
+
+        {/* Pagination Dots */}
+        <div className="flex justify-center mt-8 space-x-3">
+          {testimonials.slice(0, testimonials.length - 2).map((_, index) => (
+            <motion.button
+              key={index}
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => {
+                if (!isAnimating) {
+                  setIsAnimating(true)
+                  setCurrentIndex(index)
+                  setTimeout(() => setIsAnimating(false), 600)
+                }
+              }}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentIndex ? "bg-indigo-700 scale-125" : "bg-gray-300 hover:bg-gray-400"
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Right image & button */}
+      <motion.div
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        className="w-full lg:w-1/2 flex flex-col items-center"
+      >
+        <div className="relative">
+          <motion.div whileHover={{ scale: 1.03 }} transition={{ duration: 0.3 }}>
+            <motion.img
+              initial={{ rotate: 0 }}
+              animate={{ rotate: [0, 2, 0, -2, 0] }}
+              transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}
+              src="/img/girl.png"
+              alt="Client"
+              className="cursor-pointer w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full object-contain bg-indigo-400 z-10 relative shadow-xl"
+            />
+          </motion.div>
+
+          <motion.p
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.8, duration: 0.5 }}
+            className="w-24 h-24 absolute -z-20 -bottom-6 -left-6 rounded-full border-none shadow-lg border-4 bg-sky-100"
+          />
+
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="hidden sm:block absolute sm:-right-64 md:-right-72 -z-50 top-1/2 transform -translate-y-1/2 rotate-90 text-[105px] font-extrabold leading-none tracking-wider outlined-text"
+          >
+            Alumni
+          </motion.h2>
+        </div>
+
+        <motion.button
+          whileHover={{ scale: 1.05, backgroundColor: "#ea580c" }}
+          whileTap={{ scale: 0.95 }}
+          className="mt-10 bg-indigo-500 hover:bg-indigo-600 cursor-pointer text-white px-8 py-3 rounded-full font-semibold text-base shadow-md hover:shadow-lg transition-all duration-300"
+        >
+          View All Reviews
+        </motion.button>
+      </motion.div>
+    </section>
+  )
 }
+
+export default Alumni

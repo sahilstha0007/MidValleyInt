@@ -1,58 +1,22 @@
+
+
+
 import React from 'react';
 import { PartyPopper, Handshake } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-export default function About() {
+export default function PlusTwo() {
   return (
     <div className="bg-white min-h-screen relative overflow-hidden">
      
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-12 lg:py-20">
-        <div className="flex flex-col lg:flex-row items-center justify-between">
-          {/* Left Side - Image with Decorative Elements */}
-          <motion.div
-            initial={{ opacity: 0, x: -300 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 1.4 }}
-            className="relative w-full lg:w-1/2 mb-10 lg:mb-0"
-          >
-            {/* Decorative Elements */}
-            <div className="absolute top-0 left-0 w-24 h-24 bg-blue-100 rounded-full opacity-70"></div>
-            <div className="absolute bottom-20 left-10 w-8 h-8 bg-blue-600 rounded-full"></div>
-            <div className="absolute top-20 right-10 w-16 h-16 bg-pink-200 transform rotate-45"></div>
-            <div className="absolute right-32 top-40 w-0 h-0 border-l-[35px] border-l-transparent border-b-[60px] border-b-yellow-400 border-r-[35px] border-r-transparent"></div>
-            
-            <div className="relative ml-12 mr-12 lg:ml-20">
-              <img 
-                src="/img/group.jpg" 
-                alt="Business professional" 
-                className="rounded-lg max-w-full h-auto relative z-0"
-              />
-              
-              <motion.div
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: false }}
-                transition={{ duration: 0.5 }}
-                className="absolute left-0 bottom-1/3 transform -translate-x-1/2 z-10"
-              >
-                <div className="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" className="w-8 h-8">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
-              </motion.div>
-            </div>
+      <div className="container mx-auto  py-12 lg:py-20">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-11">
+          
 
-            <svg className="absolute top-24 right-24 w-32 h-32 text-blue-400" viewBox="0 0 100 100" fill="none">
-              <path d="M20 40C40 10 60 50 80 20" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
-            </svg>
-          </motion.div>
-
-          {/* Right Side - Content */}
+          {/* left Side - Content */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -60,15 +24,7 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="w-full lg:w-1/2 lg:pl-10"
           >
-            <motion.div
-              initial={{ y: -20, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: false }}
-              transition={{ delay: 0.2 }}
-              className="mb-6"
-            >
-              <span className="inline-block bg-orange-500 text-white px-4 py-2 rounded-full text-sm font-medium">ABOUT US</span>
-            </motion.div>
+           
 
             <motion.h1
               initial={{ y: 20, opacity: 0 }}
@@ -77,8 +33,7 @@ export default function About() {
               transition={{ delay: 0.3 }}
               className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-navy-900"
             >
-              <span className="text-indigo-900">The Best College</span><br/>
-              <span className="text-indigo-900">In Nepal</span>
+              <span className="text-indigo-900">Galaxy (+2)</span><br/>
             </motion.h1>
 
             <motion.p
@@ -88,8 +43,7 @@ export default function About() {
               transition={{ delay: 0.4 }}
               className="text-gray-600 mb-8"
             >
-              Mid-Valley International College (MVIC), the best college in Nepal, offers a wide range of 
-              undergraduate and diploma programs in technical, management, hospitality, and finance.
+              The school is headed by the Principal who acts in accordance with the policies framed by a six-member apex body called the Governing Body.
             </motion.p>
 
             {/* Features */}
@@ -109,7 +63,7 @@ export default function About() {
                 },
                 {
                   title: "Our Vision",
-                  desc: "To uplift the lives of every student",
+                  desc: "Providing innovative education for decades",
                   icon: (
                     <path
                       strokeLinecap="round"
@@ -163,6 +117,36 @@ export default function About() {
                 </button>
               </Link>
             </motion.div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: -300 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 1.4 }}
+            className="relative w-full lg:w-1/2 mb-10 lg:mb-0"
+          >
+            {/* Decorative Elements */}
+            <div className="absolute top-0 left-0 w-24 h-24 bg-blue-100 rounded-full opacity-70"></div>
+            <div className="absolute bottom-20 left-10 w-8 h-8 bg-blue-600 rounded-full"></div>
+            <div className="absolute top-20 right-10 w-16 h-16 bg-pink-200 transform rotate-45"></div>
+            <div className="absolute right-32 top-40 w-0 h-0 border-l-[35px] border-l-transparent border-b-[60px] border-b-yellow-400 border-r-[35px] border-r-transparent"></div>
+            
+           <div className="relative z-10 bg-blue-600 rounded-lg overflow-hidden h-[400px]">
+          
+
+              <img
+                src="/img/bit.jpg"
+                alt="IT Professional"
+                width={400}
+                height={400}
+                className="object-cover h-full w-full"
+              />
+            </div>
+
+            <svg className="absolute top-24 right-24 w-32 h-32 text-blue-400" viewBox="0 0 100 100" fill="none">
+              <path d="M20 40C40 10 60 50 80 20" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
+            </svg>
           </motion.div>
         </div>
       </div>
