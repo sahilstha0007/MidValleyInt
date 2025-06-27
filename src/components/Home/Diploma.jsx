@@ -9,7 +9,7 @@ const cards = [
   },
   {
     image: "/img/bachelor-1.webp",
-    title: "BBA",
+    title: "/BBA",
     location: "Bachelor of Business (BBA-Finance) (Hons)",
   },
   {

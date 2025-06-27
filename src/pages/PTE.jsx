@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Link } from 'react-router-dom';
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
   faBars,
   faDesktop,
@@ -8,297 +8,242 @@ import {
   faCouch,
   faShieldAlt,
   faTools,
-  faMicrophone
+  faMicrophone,
+  faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const galleryItems = [
-  { src: "./public/PTE1.png" },
-  { src: "./public/PTE2.png" },
-  { src: "./public/PTE3.png" },
-  { src: "./public/PTE4.png" },
-  { src: "./public/PTE5.png" },
-  { src: "./public/PTE6.png" }
+// Animation Variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 80, damping: 15 },
+  },
+};
+
+const features = [
+  {
+    icon: faDesktop,
+    title: "Cutting-Edge Facilities",
+    description:
+      "Experience testing in rooms equipped with modern computers, premium audio gear, and standard PTE software.",
+  },
+  {
+    icon: faUserTie,
+    title: "Expert Test Administrators",
+    description:
+      "Our skilled staff provides clear instructions and comprehensive support for a stress-free exam.",
+  },
+  {
+    icon: faCouch,
+    title: "Comfortable Environment",
+    description:
+      "Relax in our inviting waiting areas designed to help you maintain focus and calm.",
+  },
+  {
+    icon: faShieldAlt,
+    title: "Robust Security",
+    description:
+      "We utilize strict identity verification and electronic surveillance to ensure test integrity.",
+  },
+  {
+    icon: faTools,
+    title: "Dedicated Technical Support",
+    description:
+      "Our technical team is on standby to swiftly resolve any issues, ensuring a smooth test flow.",
+  },
+  {
+    icon: faMicrophone,
+    title: "Superior Audio Recording",
+    description:
+      "High-fidelity microphones capture your speaking responses accurately for reliable scoring.",
+  },
 ];
 
-export default function PTE() {
-  const [booked, setBooked] = useState(false);
+const galleryItems = [
+  { src: "https://picsum.photos/id/1011/800/600", alt: "PTE Test Center Image 1" },
+  { src: "https://picsum.photos/id/1015/800/600", alt: "PTE Test Center Image 2" },
+  { src: "https://picsum.photos/id/1025/800/600", alt: "PTE Test Center Image 3" },
+  { src: "https://picsum.photos/id/1035/800/600", alt: "PTE Test Center Image 4" },
+  { src: "https://picsum.photos/id/1045/800/600", alt: "PTE Test Center Image 5" },
+  { src: "https://picsum.photos/id/1055/800/600", alt: "PTE Test Center Image 6" },
+];
 
-  const handleBooking = () => {
-    setBooked(true);
-    setTimeout(() => setBooked(false), 3000); // hide after 3 seconds
-  };
+const heroImageSrc = "https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1200&q=80";
+
+export default function PTE() {
+  const featuresRef = useRef(null);
+  const isFeaturesInView = useInView(featuresRef, { once: true, margin: "-100px" });
+
+  const galleryRef = useRef(null);
+  const isGalleryInView = useInView(galleryRef, { once: true, margin: "-100px" });
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-orange-50 min-h-screen px-4 py-8 max-w-screen-xl mx-auto">
-      <header className="flex items-center justify-between mb-12">
-        <div className="flex-1 flex justify-center">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-3xl font-bold bg-orange-500 bg-clip-text text-transparent"
-          >
-            MVIC PTE
-          </motion.div>
-        </div>
-        <Link to="/" >
-        <button
-          id="hamburger"
-          className="text-blue-600 hover:text-orange-500 text-2xl transition-transform"
+    <div className="bg-gradient-to-b from-white via-blue-50 to-orange-50 min-h-screen px-4 py-12 md:px-8 lg:px-16">
+      {/* Header */}
+      <header className="flex items-center justify-between mb-16 max-w-screen-xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-4xl md:text-5xl font-extrabold text-blue-900 relative"
         >
-        </button>
+          MVIC <span className="text-orange-500">PTE</span>
+          <motion.span
+            initial={{ width: 0 }}
+            animate={{ width: "100%" }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="absolute bottom-0 left-0 h-1 bg-orange-500 rounded-full"
+          />
+        </motion.div>
+
+        <Link to="/" className="group">
+          <motion.button
+            className="text-blue-600 text-3xl transition-transform duration-300 group-hover:text-orange-500 group-hover:rotate-90"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <FontAwesomeIcon icon={faBars} />
+          </motion.button>
         </Link>
       </header>
 
-      <section className="mb-16">
-        <div className="flex flex-col md:flex-row items-center gap-12">
-          {/* Text Section */}
+      {/* Hero Section */}
+      <section className="mb-24 max-w-screen-xl mx-auto">
+        <div className="flex flex-col md:flex-row items-center gap-16">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex-1"
+            transition={{ duration: 1, delay: 0.4, type: "spring", stiffness: 50 }}
+            className="flex-1 text-center md:text-left"
           >
-            <h1 className="text-5xl md:text-6xl font-bold mb-20 text-blue-900">
-              Master the <span className="text-orange-500">PTE</span> Exam
+            <h1 className="text-6xl md:text-7xl font-bold mb-6 leading-tight text-blue-900">
+              Unlock Your Potential with <span className="text-orange-500 block md:inline">MVIC PTE</span>
             </h1>
-            <p className="text-xl text-justify text-gray-600 mb-8 max-w-2xl">
-              Mid-Valley International College proudly stands as a designated
-              Pearson Test of English (PTE) center, dedicated to facilitating
-              English language proficiency assessments. Situated in Gyaneshwor,
-              Kathmandu, Nepal, our college offers top-notch facilities and
-              unwavering commitment to providing a premier testing environment for
-              individuals seeking to validate their English language skills.
+            <p className="text-xl text-gray-700 mb-10 max-w-2xl mx-auto md:mx-0">
+              As a premier Pearson Test of English (PTE) center in Gyaneshwor, Kathmandu, MVIC offers state-of-the-art facilities and expert support for your English language proficiency journey.
             </p>
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="flex justify-center md:justify-start"
+            >
+              <a
+                href="LINK_TO_DETAIL_PAGE"
+                className="inline-flex items-center bg-orange-500 text-white font-semibold py-4 px-10 rounded-full shadow-lg hover:bg-orange-600 hover:shadow-xl transition duration-300 ease-in-out text-lg group"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Book an Appointment
+                <FontAwesomeIcon icon={faArrowRight} className="ml-3 transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
+            </motion.div>
           </motion.div>
 
-          {/* Image Section */}
           <motion.div
-            initial={{ opacity: 0, x: 50, scale: 0.95 }}
+            initial={{ opacity: 0, x: 100, scale: 0.8 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-            className="flex-1"
+            transition={{ duration: 1, delay: 0.6, type: "spring", stiffness: 50 }}
+            className="flex-1 relative w-full max-w-md md:max-w-none"
           >
+            <div className="absolute inset-0 bg-blue-200 rounded-3xl transform rotate-3 translate-x-4 translate-y-4 opacity-50" />
             <img
-              src="./public/PTE2.png"
-              alt="PTE Exam"
-              className="w-full h-auto lg:w-2xl md:w-xl sm:w-md rounded-lg shadow-lg"
+              src={heroImageSrc}
+              alt="PTE Exam Preparation"
+              className="relative z-10 w-full h-auto rounded-3xl shadow-2xl"
             />
           </motion.div>
         </div>
       </section>
 
-      <section className="mb-16">
+      {/* Features Section */}
+      <motion.section
+        ref={featuresRef}
+        className="mb-24 max-w-screen-xl mx-auto"
+        initial="hidden"
+        animate={isFeaturesInView ? "visible" : "hidden"}
+        variants={containerVariants}
+      >
         <motion.h2
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="text-3xl font-bold mb-8 text-center text-blue-800"
+          variants={itemVariants}
+          className="text-4xl font-bold mb-12 text-center text-blue-900"
         >
-          Why Choose Our PTE Preparation?
+          Why Choose MVIC for PTE?
         </motion.h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          {[
-            {
-              icon: faDesktop,
-              title: "Advanced Test Center Facilities",
-              description:
-                "Purpose-built testing rooms with modern computers, premium headphones, microphones, and standard PTE software."
-            },
-            {
-              icon: faUserTie,
-              title: "Experienced Administrators",
-              description:
-                "Our professional test staff ensure a smooth exam experience with precise instructions and full support."
-            },
-            {
-              icon: faCouch,
-              title: "Comfortable Waiting Area",
-              description:
-                "Relaxing spaces available pre-test or during breaks to help you stay calm and focused."
-            },
-            {
-              icon: faShieldAlt,
-              title: "Strict Security Measures",
-              description:
-                "Identity verification and electronic monitoring ensure the highest standards of test integrity."
-            },
-            {
-              icon: faTools,
-              title: "Technical Support",
-              description:
-                "Our support team is always ready to solve any technical issues quickly and efficiently."
-            },
-            {
-              icon: faMicrophone,
-              title: "High-Quality Recording Equipment",
-              description:
-                "Top-tier microphones accurately capture your voice responses for scoring in the speaking section."
-            }
-          ].map((feature, idx) => (
+
+        <motion.div
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-10"
+          variants={containerVariants}
+        >
+          {features.map((feature, idx) => (
             <motion.div
               key={idx}
-              whileHover={{ y: -10 }}
-              className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all"
+              variants={itemVariants}
+              whileHover={{ y: -10, scale: 1.05 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-blue-100 cursor-pointer"
             >
-              <div className="text-blue-500 text-4xl mb-4">
+              <div className="text-orange-500 text-5xl mb-6">
                 <FontAwesomeIcon icon={feature.icon} />
               </div>
-              <h3 className="text-xl font-bold mb-2 text-blue-800">{feature.title}</h3>
-              <p className="text-gray-600">{feature.description}</p>
+              <h3 className="text-2xl font-bold mb-3 text-blue-800">{feature.title}</h3>
+              <p className="text-gray-600 leading-relaxed">{feature.description}</p>
             </motion.div>
           ))}
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
 
-      <section className="mb-16">
+      {/* Gallery Section */}
+      <motion.section
+        ref={galleryRef}
+        className="mb-16 max-w-screen-xl mx-auto"
+        initial="hidden"
+        animate={isGalleryInView ? "visible" : "hidden"}
+        variants={containerVariants}
+      >
         <motion.h2
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="text-3xl font-bold mb-8 text-center text-blue-800"
+          variants={itemVariants}
+          className="text-4xl font-bold mb-12 text-center text-blue-900"
         >
-          Our Venue
+          Explore Our Test Venue
         </motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          variants={containerVariants}
+        >
           {galleryItems.map((item, index) => (
             <motion.div
               key={index}
-              whileHover={{ scale: 1.05 }}
-              className="relative rounded-xl overflow-hidden gallery-item"
+              variants={itemVariants}
+              whileHover={{ scale: 1.03 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className={`relative rounded-xl overflow-hidden shadow-lg cursor-pointer ${
+                index === 0 || index === 5 ? "md:col-span-2 lg:col-span-1" : ""
+              } ${index === 2 ? "lg:col-span-2" : ""}`}
             >
               <img
                 src={item.src}
-                alt={item.name}
-                className="w-full h-full object-cover"
+                alt={item.alt}
+                className="w-full h-64 md:h-72 lg:h-80 object-cover"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
-                <h3 className="text-white font-bold text-lg">{item.name}</h3>
-                <p className={item.color}>{item.score}</p>
-              </div>
             </motion.div>
           ))}
-        </div>
-      </section>
-
-      <section className="mb-16">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.8 }}
-          className="bg-indigo-900 rounded-2xl p-8 md:p-12 text-white"
-        >
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Ready to Ace Your PTE Exam?
-            </h2>
-            <p className="text-xl mb-8">
-              Join thousands of students who have achieved their dream scores
-              with our proven methods.
-            </p>
-            <div className="max-w-lg mx-auto p-8 bg-white shadow-lg rounded-lg">
-  <h2 className="text-2xl font-bold text-center mb-6 text-blue-900">Book an Appointment</h2>
-
-  <form className="space-y-4">
-    <div>
-      <label htmlFor="full-name" className="block text-sm  font-semibold text-gray-700">Full Name</label>
-      <input
-        type="text"
-        id="full-name"
-        name="full-name"
-        placeholder="Enter your full name"
-        className="w-full px-4 py-2 mt-2 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-        required
-      />
-    </div>
-
-    <div>
-      <label htmlFor="email" className="block text-sm font-semibold text-gray-700">Email</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        placeholder="Enter your email"
-        className="w-full px-4 py-2 mt-2 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-        required
-      />
-    </div>
-
-    <div>
-      <label htmlFor="phone" className="block text-sm font-semibold text-gray-700">Phone Number</label>
-      <input
-        type="tel"
-        id="phone"
-        name="phone"
-        placeholder="Enter your phone number"
-        className="w-full px-4 py-2 mt-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-        required
-      />
-    </div>
-
-    <div>
-      <label htmlFor="message" className="block text-sm font-semibold text-gray-700">Message</label>
-      <textarea
-        id="message"
-        name="message"
-        placeholder="Enter your message"
-        className="w-full px-4 py-2 text-black mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-        required
-      />
-    </div>
-
-    <div className="flex space-x-4">
-      <div className="w-1/2">
-        <label htmlFor="appointment-date" className="block text-sm font-semibold text-gray-700">Appointment Date</label>
-        <input
-          type="date"
-          id="appointment-date"
-          name="appointment-date"
-          className="w-full px-4 py-2 mt-2 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-          required
-        />
-      </div>
-
-      <div className="w-1/2">
-        <label htmlFor="appointment-time" className="block text-sm font-semibold text-gray-700">Appointment Time</label>
-        <input
-          type="time"
-          id="appointment-time"
-          name="appointment-time"
-          className="w-full px-4 py-2 mt-2 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-          required
-        />
-      </div>
-    </div>
-
-    <div className="relative">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={handleBooking}
-                className="bg-indigo-900 text-white px-8 py-3 rounded-full font-semibold shadow-lg"
-              >
-                Book an Appointment
-              </motion.button>
-
-              {booked && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="absolute mt-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded-lg shadow-md"
-                >
-                  Appointment booked successfully!
-                </motion.div>
-              )}
-            </div>
-  </form>
-</div>
-
-           
-          </div>
         </motion.div>
-      </section>
+      </motion.section>
     </div>
   );
 }

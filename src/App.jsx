@@ -10,11 +10,11 @@ import TestimonialCards from './components/Testimonial/TestimonialCards'
 import Partner from './pages/Partner'
 import Contact from './pages/Contact'
 import EnquiryForm from './pages/EnquiryForm';
-import Aboutus from './pages/Aboutus';
+// import Aboutus from './pages/Aboutus';
 import PTE from './pages/PTE';
-import BHM from './pages/BHM';
-import BIT from './pages/BIT';
-import BBA from './pages/BBA'
+import BHM from './pages/Bacholers/BHM';
+import BIT from './pages/Bacholers/BIT';
+import BBA from './pages/Bacholers/BBA'
 import DiplomaPage from './pages/Diploma/DiplomaPage';
 import Partners from './pages/Aboutus/Partner';
 import Messages from './pages/Aboutus/Messages';
@@ -25,6 +25,14 @@ import CareerPath from './pages/CareerPath';
 import Clubs from './pages/Clubs/ClubDetails';
 import Diploma from './pages/Diploma/Diploma';
 import ClubsList from './pages/Clubs/ClubsList'
+
+import Aboutus from '../src/pages/Aboutus/Aboutus';
+
+
+// Chattbot
+import MVICBot from '../src/chatbot/MVICBot';
+
+import WhatsAppChat from './WhatsAppChat';
 
 function App() {
 
@@ -46,11 +54,13 @@ function App() {
       <Route path='/Partner' element={<Partner />}></Route>
       <Route path='/Contact' element={<Contact />}></Route>
       <Route path="/EnquiryForm" element={<EnquiryForm />} />
-      <Route path="/Aboutus" element={<Aboutus />} />
+      {/* <Route path="/Aboutus" element={<Aboutus />} /> */}
       <Route path="/PTE" element={<PTE />} />
       <Route path="/BHM" element={<BHM />} />
       <Route path="/BIT" element={<BIT />} />
       <Route path="/BBA" element={<BBA />} />
+      <Route path="/Aboutus" element={<Aboutus/>} />
+
 
       {/* added */}
       <Route path="/Diploma" element={<Diploma />} />
@@ -64,7 +74,11 @@ function App() {
       <Route path="/Clubs/:clubId" element={<Clubs />} />
       <Route path="/Clubs" element={<ClubsList/>} />
     </Routes>
+     <MVICBot />
+    {/* <ScrollAnimatedCards /> */}
+    <WhatsAppChat  /> 
     <Footer />
+
   </>
   )
 }

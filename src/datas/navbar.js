@@ -1,8 +1,14 @@
+import { href } from "react-router-dom";
+
 const navbar = [
     {
         name: "About",
         href: "/Aboutus",
         hasDropdown: true,
+        // {
+        //     name:"Seemore",
+        //     href:"/Aboutus"
+        // },
         dropdown: [
             {
                 name: "Message",

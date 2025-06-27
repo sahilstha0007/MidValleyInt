@@ -117,6 +117,18 @@ const Navbar = () => {
                                                     Led by a collective of dedicated academicians, visionary entrepreneurs, and seasoned experts, MVIC is committed to 
                                                     providing exceptional educational opportunities across diverse disciplines.
                                                 </p>
+                                                <div className='text-center mb-6'>
+                                                    <Link
+                                                        to="/aboutus" // Example link
+                                                        onClick={() => {
+                                                            scrollTo(0, 0);
+                                                            setActiveDropdown(null);
+                                                        }}
+                                                        className="inline-block bg-[#F1592D] text-white px-6 py-2 rounded-md text-sm font-semibold hover:bg-orange-600 transition-colors duration-300"
+                                                    >
+                                                        See more
+                                                    </Link>
+                                                </div>
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                     {item.dropdown.map((dropItem, dropIndex) => (
                                                         <Link

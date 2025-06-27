@@ -38,7 +38,7 @@ const DiplomaPage = () => {
   const { instructorData, testimonials = [], faqs = [] } = courseData; // Provide default values
 
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-100  overflow-hidden">
       {/* Global animation styles */}
       <style jsx="true" global="true">{animationStyles}</style>
 

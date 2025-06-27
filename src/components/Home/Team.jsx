@@ -1,7 +1,9 @@
 import React from 'react'
 import { ArrowUpRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
-
+// const navigate = useNavigate()
 const Team = () => {
     const team = [
         {
@@ -51,7 +53,8 @@ const Team = () => {
             ))}
           </div>
           <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
-            <button className="flex items-center gap-2  text-blue-500 font-bold px-5 py-2 rounded-full hover:bg-purple-200 transition">
+            <button 
+            className="flex items-center gap-2  text-blue-500 font-bold px-5 py-2 rounded-full hover:bg-purple-200 transition">
               View All  <ArrowUpRight size={16} />
             </button>
           </div>
