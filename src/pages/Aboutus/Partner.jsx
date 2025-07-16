@@ -75,7 +75,7 @@ const Partners = () => {
   } = partnerData;
 
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-100 overflow-hidden">
       {/* Front Image */}
       <motion.div
         className="relative"
